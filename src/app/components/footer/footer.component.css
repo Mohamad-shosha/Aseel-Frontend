@@ -1,0 +1,46 @@
+.footer {
+  background: #16212f; /* غامق أنيق */
+  border-radius: 12px 12px 0 0;
+  animation: fadeInUp 1s ease;
+}
+
+/* اللينكات */
+.footer-links li {
+  margin-bottom: 0.6rem;
+}
+
+.footer-links a {
+  color: #adb5bd;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  position: relative;
+  padding-right: 20px;
+}
+
+/* Hover */
+.footer-links a:hover {
+  color: #0dcaf0; /* سماوي */
+  padding-right: 25px;
+}
+
+/* أيقونات */
+.footer i {
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.footer li:hover i {
+  color: #0dcaf0;
+  transform: translateY(-3px) rotate(-5deg);
+}
+
+/* Animation أساسي */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

@@ -1,0 +1,37 @@
+<div
+  class="position-relative d-inline-flex align-items-center justify-content-center"
+>
+  <svg [attr.width]="size" [attr.height]="size" class="transform-rotate">
+    <circle
+      [attr.cx]="size / 2"
+      [attr.cy]="size / 2"
+      [attr.r]="radius"
+      stroke="#e5e7eb"
+      [attr.stroke-width]="strokeWidth"
+      fill="transparent"
+    ></circle>
+    <circle
+      [attr.cx]="size / 2"
+      [attr.cy]="size / 2"
+      [attr.r]="radius"
+      [attr.stroke]="color"
+      [attr.stroke-width]="strokeWidth"
+      fill="transparent"
+      [attr.stroke-dasharray]="dash + ' ' + gap"
+      stroke-linecap="round"
+      class="draw-circle"
+    ></circle>
+  </svg>
+  <div
+    class="progress-value"
+    style="
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    "
+  >
+    <span class="fw-bold">{{ percentage }}%</span>
+  </div>
+</div>

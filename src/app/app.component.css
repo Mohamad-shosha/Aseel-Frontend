@@ -1,0 +1,8 @@
+/* .app-background {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  color: #fff;
+} */
+:host {
+  display: block;
+}

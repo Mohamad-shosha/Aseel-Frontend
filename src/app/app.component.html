@@ -1,0 +1,40 @@
+<app-layout>
+  <app-header></app-header>
+
+  <div class="bg-shapes">
+    <div class="shape s1"></div>
+    <div class="shape s2"></div>
+  </div>
+
+  <main class="container-main">
+    <!-- الرئيسية -->
+    <section id="home">
+      <app-landing-section></app-landing-section>
+    </section>
+
+<!-- كيف يعمل -->
+<section id="uploadphoto" class="text-center py-5 fade-in">
+  <!-- مكان رفع المشروع -->
+  <div class="upload-card card-ghost p-4 shadow-sm rounded mt-5">
+    <app-upload-section (uploadComplete)="onUploadComplete($event)">
+    </app-upload-section>
+  </div>
+</section>
+
+
+    <!-- النتائج -->
+    <section id="results">
+      <app-results-section
+        [visible]="showResults"
+        [analysisData]="analysisData"
+      >
+      </app-results-section>
+    </section>
+
+    <!-- تواصل -->
+ 
+  </main>
+     <section id="contact" class="py-5">
+      <app-footer></app-footer>
+    </section>
+</app-layout>

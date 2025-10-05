@@ -1,0 +1,37 @@
+<div
+  class="dropzone"
+  (dragover)="onDragOver($event)"
+  (dragleave)="onDragLeave($event)"
+  (drop)="onDrop($event)"
+  (click)="fileInput.click()"
+  [class.border-primary]="isDragOver"
+>
+  <input
+    #fileInput
+    type="file"
+    class="d-none"
+    (change)="onFileChange($event)"
+  />
+  <div class="text-center">
+    <i class="bi bi-cloud-arrow-up-fill fs-1 text-muted mb-3"></i>
+    <div *ngIf="!selectedFile">
+      <h5 class="mb-1">اسحب الملف هنا أو اضغط لاختياره</h5>
+      <p class="upload-meta">يدعم PDF, JPG, PNG, DOCX • الحد الأقصى 10MB</p>
+    </div>
+
+    <div *ngIf="selectedFile" class="mt-2">
+      <div class="upload-file-name">{{ fileName }}</div>
+      <div class="upload-meta mt-1">
+        جاري الرفع — {{ progress | number : "1.0-0" }}%
+      </div>
+      <div class="progress mt-2" style="height: 8px">
+        <div
+          class="progress-bar bg-gradient"
+          role="progressbar"
+          [style.width]="progress + '%'"
+          [attr.aria-valuenow]="progress"
+        ></div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,121 @@
+/* ===== Reset & Base ===== */
+body {
+  font-family: "Cairo", "Segoe UI", sans-serif;
+  background: #fdfdfd;
+  color: #212529;
+  line-height: 1.8;
+  overflow-x: hidden;
+}
+
+section {
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+  position: relative;
+  z-index: 1;
+}
+
+h1.display-5,
+h2.display-6 {
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  color: #1a1a1a;
+  background: linear-gradient(90deg, #0d6efd, #0dcaf0);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+p.lead {
+  font-size: 1.1rem;
+  color: #5f6368;
+  max-width: 850px;
+}
+
+/* ===== Cards (Ghost) ===== */
+.card-ghost {
+  background: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
+  padding: 2rem 1.5rem;
+  transition: all 0.35s ease;
+  border: 1px solid rgba(0, 0, 0, 0.04);
+  backdrop-filter: blur(6px);
+}
+
+.card-ghost:hover {
+  transform: translateY(-10px) scale(1.05);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+}
+
+.card-ghost i {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  transition: transform 0.35s ease, color 0.3s ease;
+}
+
+.card-ghost:hover i {
+  transform: scale(1.25) rotate(8deg);
+  color: #0dcaf0;
+}
+
+/* ===== Fade-in Animation ===== */
+.fade-in {
+  animation: fadeInUp 0.9s ease both;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ===== Section Styling ===== */
+#about {
+  background: linear-gradient(135deg, #f9fafb 0%, #ffffff 100%);
+}
+
+#how {
+  background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+}
+
+/* ===== Divider Between Sections ===== */
+.section-divider {
+  width: 80px;
+  height: 4px;
+  background: linear-gradient(90deg, #0d6efd, #0dcaf0);
+  border-radius: 10px;
+  margin: 2rem auto;
+  position: relative;
+}
+
+.section-divider::after {
+  content: "★";
+  position: absolute;
+  top: -14px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 1.1rem;
+  color: #0dcaf0;
+  background: #fff;
+  padding: 0 0.5rem;
+  border-radius: 50%;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+/* ===== Upload Card (Special) ===== */
+.upload-card {
+  border: 2px dashed rgba(0, 0, 0, 0.15);
+  border-radius: 20px;
+  background: #ffffff;
+  transition: all 0.35s ease;
+}
+
+.upload-card:hover {
+  border-color: #0dcaf0;
+  background: #f9feff;
+  box-shadow: 0 8px 30px rgba(13, 202, 240, 0.2);
+}
