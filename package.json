@@ -19,10 +19,15 @@
     "@angular/platform-browser-dynamic": "^14.0.0",
     "@angular/router": "^14.0.0",
     "@fortawesome/fontawesome-free": "^7.0.1",
+    "@types/three": "^0.152.1",
     "animate.css": "^4.1.1",
     "bootstrap": "^5.3.8",
+    "gsap": "^3.13.0",
+    "lottie-web": "^5.13.0",
     "rxjs": "~7.5.0",
+    "three": "^0.152.2",
     "tslib": "^2.3.0",
+    "vanta": "^0.5.24",
     "zone.js": "~0.11.4"
   },
   "devDependencies": {

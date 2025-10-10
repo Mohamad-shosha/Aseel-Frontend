@@ -13,6 +13,9 @@ import { ResultsSectionComponent } from './components/results-section/results-se
 import { CircularProgressComponent } from './components/circular-progress/circular-progress.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { CommonModule } from '@angular/common';
+import { LottiePlayerComponent } from './components/lottie-player/lottie-player.component';
+import { ThreeBackgroundComponent } from './components/three-background/three-background.component';
+import { HomepageComponent } from './components/homepage/homepage.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +27,9 @@ import { CommonModule } from '@angular/common';
     ResultsSectionComponent,
     CircularProgressComponent,
     FooterComponent,
+    LottiePlayerComponent,
+    ThreeBackgroundComponent,
+    HomepageComponent,
   ],
   imports: [
     BrowserModule,

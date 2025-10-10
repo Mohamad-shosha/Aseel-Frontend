@@ -1,0 +1,53 @@
+<!-- كيف تعمل المنصة -->
+<section id="how" class="text-center py-5 fade-in">
+  <h2 class="display-6 fw-bold mb-3">كيف تعمل منصة أصيل؟</h2>
+  <p class="lead text-muted mx-auto" style="max-width: 900px">
+    العملية بسيطة وسريعة: ما عليك سوى رفع مشروعك الأكاديمي، وسيقوم النظام
+    بتحليله باستخدام تقنيات الذكاء الاصطناعي، ثم يصدر تقريرًا شاملاً يوضح مستوى
+    الأصالة وأي نقاط تحتاج إلى مراجعة.
+  </p>
+  <p class="lead text-muted mx-auto" style="max-width: 900px">
+    يهدف رصين إلى تبسيط رحلة التحقق من النزاهة الأكاديمية من خلال ثلاث خطوات
+    أساسية تضمن لك تجربة سهلة ونتائج دقيقة.
+  </p>
+
+  <div class="section-divider"></div>
+
+  <div class="row g-4 justify-content-center mt-4">
+    <div class="col-6 col-md-3">
+      <div class="card-ghost p-3 text-center">
+        <i class="bi bi-upload fs-2 text-primary mb-2"></i>
+        <h6 class="mb-0">١. رفع المشروع</h6>
+        <small class="text-muted">تحميل الملف أو المشروع بسهولة</small>
+      </div>
+    </div>
+    <div class="col-6 col-md-3">
+      <div class="card-ghost p-3 text-center">
+        <i class="bi bi-cpu fs-2 text-info mb-2"></i>
+        <h6 class="mb-0">٢. التحليل الذكي</h6>
+        <small class="text-muted">مقارنة شاملة مع مئات المصادر</small>
+      </div>
+    </div>
+    <div class="col-6 col-md-3">
+      <div class="card-ghost p-3 text-center">
+        <i class="bi bi-file-earmark-text fs-2 text-success mb-2"></i>
+        <h6 class="mb-0">٣. التقرير النهائي</h6>
+        <small class="text-muted">عرض نسبة الأصالة ومؤشرات الإبداع</small>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- عناصر الحماية -->
+<section id="claims" class="text-center py-5 fade-in">
+  <h2 class="display-6 fw-bold mb-3">عناصر الحماية (Claims)</h2>
+  <div class="section-divider"></div>
+  <div class="row g-4 justify-content-center mt-4">
+    <div class="col-12 col-md-6 col-lg-4" *ngFor="let claim of claims">
+      <div class="card-ghost p-3 text-start">
+        <i class="bi bi-check-circle text-primary fs-4 mb-2"></i>
+        <p class="mb-0 text-muted">{{ claim }}</p>
+      </div>
+    </div>
+  </div>
+</section>

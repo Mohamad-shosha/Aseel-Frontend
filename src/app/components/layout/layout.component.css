@@ -1,5 +1,35 @@
-:host {
-  display: block;
-  min-height: 100vh;
-  background: transparent;
+.scroll-anim {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 0; /* خليها 0 بدل -1 */
+}
+
+.shape {
+  position: absolute;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #06b6d4, #0ea5e9);
+  opacity: 0.4;
+  filter: blur(2px); /* يديها مظهر ناعم */
+  transition: transform 0.2s ease-out;
+  will-change: transform;
+}
+
+.shape.s1 {
+  top: 10%;
+  left: 10%;
+}
+.shape.s2 {
+  top: 20%;
+  left: 20%;
+}
+.shape.s3 {
+  top: 30%;
+  left: 30%;
 }

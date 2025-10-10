@@ -1,40 +1,35 @@
 <app-layout>
   <app-header></app-header>
 
-  <div class="bg-shapes">
-    <div class="shape s1"></div>
-    <div class="shape s2"></div>
-  </div>
-
   <main class="container-main">
     <!-- الرئيسية -->
     <section id="home">
       <app-landing-section></app-landing-section>
     </section>
 
-<!-- كيف يعمل -->
-<section id="uploadphoto" class="text-center py-5 fade-in">
-  <!-- مكان رفع المشروع -->
-  <div class="upload-card card-ghost p-4 shadow-sm rounded mt-5">
-    <app-upload-section (uploadComplete)="onUploadComplete($event)">
-    </app-upload-section>
-  </div>
-</section>
+    <app-homepage id="claims"></app-homepage>
 
+    <!-- رفع المشروع -->
+    <section id="uploadphoto" class="text-center py-5 fade-in">
+      <h2 class="display-6 fw-bold mb-3">جرّب المنصة الآن</h2>
+      <p class="lead text-muted mx-auto" style="max-width: 900px">
+        ارفع مشروعك الأكاديمي أو الفني ليتم تحليله واكتشاف مدى أصالته.
+      </p>
+      <div class="upload-card card-ghost p-4 shadow-sm rounded mt-5">
+        <app-upload-section (uploadComplete)="onUploadComplete($event)">
+        </app-upload-section>
+      </div>
+    </section>
 
     <!-- النتائج -->
     <section id="results">
       <app-results-section
         [visible]="showResults"
         [analysisData]="analysisData"
-      >
-      </app-results-section>
+      ></app-results-section>
     </section>
-
-    <!-- تواصل -->
- 
   </main>
-     <section id="contact" class="py-5">
-      <app-footer></app-footer>
-    </section>
+
+  <!-- خلي الفوتر هنا فقط -->
+  <app-footer id="contact"></app-footer>
 </app-layout>
