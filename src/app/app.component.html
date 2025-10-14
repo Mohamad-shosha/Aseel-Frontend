@@ -30,6 +30,18 @@
     </section>
   </main>
 
-  <!-- خلي الفوتر هنا فقط -->
+  <!-- زر الصعود للأعلى -->
+  <button
+    class="scroll-top-btn"
+    *ngIf="showScrollButton"
+    (click)="scrollToTop()"
+    aria-label="Scroll to top"
+  >
+    <i class="fa fa-arrow-up"></i>
+  </button>
+  <!-- الفوتر -->
   <app-footer id="contact"></app-footer>
+
+  <!-- ✅ أضف مكون الـ Chatbot هنا -->
+  <app-chatbot></app-chatbot>
 </app-layout>

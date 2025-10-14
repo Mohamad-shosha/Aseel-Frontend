@@ -16,6 +16,7 @@ import { CommonModule } from '@angular/common';
 import { LottiePlayerComponent } from './components/lottie-player/lottie-player.component';
 import { ThreeBackgroundComponent } from './components/three-background/three-background.component';
 import { HomepageComponent } from './components/homepage/homepage.component';
+import { ChatbotComponent } from './components/chatbot/chatbot.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { HomepageComponent } from './components/homepage/homepage.component';
     LottiePlayerComponent,
     ThreeBackgroundComponent,
     HomepageComponent,
+    ChatbotComponent,
   ],
   imports: [
     BrowserModule,

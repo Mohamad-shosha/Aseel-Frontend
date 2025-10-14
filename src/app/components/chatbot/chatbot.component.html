@@ -1,0 +1,43 @@
+<div
+  class="chatbot-container"
+  [class.open]="isOpen"
+  (click)="$event.stopPropagation()"
+>
+  <!-- زر الدائرة -->
+  <div class="chatbot-button" (click)="toggleChat(); $event.stopPropagation()">
+    <i class="bi bi-chat-dots-fill"></i>
+  </div>
+
+  <!-- نافذة الشات -->
+  <div class="chatbot-box" *ngIf="isOpen" (click)="$event.stopPropagation()">
+    <div class="chatbot-header">
+      <h6>مساعد أصيل الذكي</h6>
+    </div>
+
+    <div class="chatbot-body">
+      <div class="faq-list" *ngIf="!selectedAnswer">
+        <div
+          class="faq-card"
+          *ngFor="let item of faqs"
+          (click)="selectQuestion(item.answer); $event.stopPropagation()"
+        >
+          {{ item.question }}
+        </div>
+      </div>
+
+      <div
+        class="answer-card"
+        *ngIf="selectedAnswer"
+        (click)="$event.stopPropagation()"
+      >
+        <p>{{ selectedAnswer }}</p>
+        <button
+          class="back-btn"
+          (click)="selectedAnswer = null; $event.stopPropagation()"
+        >
+          رجوع
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

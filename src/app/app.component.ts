@@ -1,5 +1,5 @@
 // app.component.ts
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, HostListener } from '@angular/core';
 import { VisionService } from './services/vision.service';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -14,7 +14,7 @@ gsap.registerPlugin(ScrollTrigger);
 export class AppComponent implements OnInit, AfterViewInit {
   showResults = false;
   analysisData: any;
-
+  showScrollButton = false;
   constructor(private vision: VisionService) {}
 
   ngOnInit() {
@@ -23,6 +23,15 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     this.initGSAPAnimations();
+  }
+
+  @HostListener('window:scroll', [])
+  onWindowScroll() {
+    this.showScrollButton = window.scrollY > 400;
+  }
+
+  scrollToTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
   onUploadComplete(data: any) {

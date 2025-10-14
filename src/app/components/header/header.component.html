@@ -2,34 +2,63 @@
   <div
     class="container-fluid d-flex align-items-center justify-content-between"
   >
-<!-- Logo -->
-<div class="d-flex align-items-center gap-2">
-  <img
-    src="../../../assets/Logo Assel.png"
-    alt="Assel Logo"
-    class="logo"
-    onclick="window.location.reload()"
-  />
-  <span class="brand-text">أصيل</span>
-</div>
+    <!-- Logo -->
+    <div class="d-flex align-items-center gap-2">
+      <img
+        src="../../../assets/Logo Assel.png"
+        alt="Assel Logo"
+        class="logo"
+        (click)="reloadPage()"
+      />
+      <span class="brand-text">أصيل</span>
+    </div>
 
+    <!-- Hamburger (visible on small screens) -->
+    <!-- Hamburger (visible on small screens) -->
+    <button
+      class="hamburger hamburger--elastic d-md-none"
+      type="button"
+      [class.is-active]="isSidebarActive"
+      (click)="toggleSidebar()"
+    >
+      <span class="hamburger-box">
+        <span class="hamburger-inner"></span>
+      </span>
+    </button>
 
-    <!-- Links -->
+    <!-- Links for medium+ screens -->
     <div
       class="links-container d-none d-md-flex align-items-center justify-content-center flex-grow-1"
     >
-      <a class="nav-link-custom" href="#home">
-        <i class="bi bi-house-door-fill"></i> الرئيسية
-      </a>
-      <a class="nav-link-custom" href="#how">
-        <i class="bi bi-gear-wide-connected"></i> كيف يعمل
-      </a>
-      <a class="nav-link-custom" href="#uploadphoto">
-        <i class="bi bi-upload"></i> رفع المشروع
-      </a>
-      <a class="nav-link-custom" href="#contact">
-        <i class="bi bi-envelope-fill"></i> تواصل
-      </a>
+      <a class="nav-link-custom" href="#home"
+        ><i class="bi bi-house-door-fill"></i> الرئيسية</a
+      >
+      <a class="nav-link-custom" href="#how"
+        ><i class="bi bi-gear-wide-connected"></i> كيف يعمل</a
+      >
+      <a class="nav-link-custom" href="#uploadphoto"
+        ><i class="bi bi-upload"></i> رفع المشروع</a
+      >
+      <a class="nav-link-custom" href="#contact"
+        ><i class="bi bi-envelope-fill"></i> تواصل</a
+      >
     </div>
   </div>
 </nav>
+
+<!-- Sidebar -->
+<div class="sidebar" [class.active]="isSidebarActive">
+  <a class="sidebar-link" href="#home" (click)="closeSidebar()">الرئيسية</a>
+  <a class="sidebar-link" href="#how" (click)="closeSidebar()">كيف يعمل</a>
+  <a class="sidebar-link" href="#uploadphoto" (click)="closeSidebar()"
+    >رفع المشروع</a
+  >
+  <a class="sidebar-link" href="#contact" (click)="closeSidebar()">تواصل</a>
+</div>
+
+<!-- Overlay -->
+<div
+  class="overlay"
+  [class.active]="isSidebarActive"
+  (click)="closeSidebar()"
+></div>
