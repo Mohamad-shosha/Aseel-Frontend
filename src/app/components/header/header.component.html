@@ -1,19 +1,33 @@
-<nav class="navbar navbar-expand-lg navbar-white bg-transparent">
+<nav class="navbar navbar-expand-lg bg-white shadow-sm rounded-3 py-2 px-4">
   <div
-    class="container-fluid p-0 d-flex align-items-center justify-content-between"
+    class="container-fluid d-flex align-items-center justify-content-between"
   >
+    <!-- Logo -->
     <div class="d-flex align-items-center gap-2">
-      <i class="bi bi-mortarboard-fill text-primary fs-3"></i>
-      <span class="fs-4 fw-bold">أصيل</span>
+      <img
+        src="../../../assets/Logo Assel.png"
+        alt="Assel Logo"
+        class="logo"
+        onclick="window.location.reload()"
+      />
     </div>
 
-    <div class="d-none d-md-flex flex-grow-1 justify-content-center gap-5">
-      <a class="text-muted text-decoration-none" href="#home">الرئيسية</a>
-      <a class="text-muted text-decoration-none" href="#how">كيف يعمل</a>
-      <a class="text-muted text-decoration-none" href="#uploadphoto"
-        >رفع المشروع</a
-      >
-      <a class="text-muted text-decoration-none" href="#contact">تواصل</a>
+    <!-- Links -->
+    <div
+      class="links-container d-none d-md-flex align-items-center justify-content-center flex-grow-1"
+    >
+      <a class="nav-link-custom" href="#home">
+        <i class="bi bi-house-door-fill"></i> الرئيسية
+      </a>
+      <a class="nav-link-custom" href="#how">
+        <i class="bi bi-gear-wide-connected"></i> كيف يعمل
+      </a>
+      <a class="nav-link-custom" href="#uploadphoto">
+        <i class="bi bi-upload"></i> رفع المشروع
+      </a>
+      <a class="nav-link-custom" href="#contact">
+        <i class="bi bi-envelope-fill"></i> تواصل
+      </a>
     </div>
   </div>
 </nav>

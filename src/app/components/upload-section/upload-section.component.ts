@@ -7,13 +7,14 @@ import { VisionService } from '../../services/vision.service';
   styleUrls: ['./upload-section.component.css'],
 })
 export class UploadSectionComponent {
-  @Output() uploadComplete = new EventEmitter<any>(); // بدل void بخليها any
+  @Output() uploadComplete = new EventEmitter<any>();
 
   isDragOver = false;
   isUploading = false;
   progress = 0;
   fileName = '';
   selectedFile?: File;
+  showSuccessPopup = false;
 
   constructor(private vision: VisionService) {}
 
@@ -45,26 +46,24 @@ export class UploadSectionComponent {
     this.isUploading = true;
     this.progress = 0;
 
-    // call backend
     this.vision.uploadImage(file).subscribe({
       next: (resp: any) => {
-        console.log('📦 Response from backend:', resp); // اطبع النتيجة في الكونسول
-        this.showToast('✅ النتيجة جاهزة');
+        this.progress = 100;
+        this.isUploading = false;
 
-        setTimeout(() => {
-          this.isUploading = false;
-          this.progress = 100;
-          this.uploadComplete.emit(resp); // ابعت النتيجة للأب
-        }, 900);
+        // رسالة نجاح مؤقتة
+        this.showSuccessPopup = true;
+        setTimeout(() => (this.showSuccessPopup = false), 2500);
+
+        this.uploadComplete.emit(resp);
       },
       error: (err) => {
-        console.error('❌ Upload error:', err);
-        this.showToast('❌ حدث خطأ أثناء الرفع', true);
+        console.error('Upload error:', err);
         this.isUploading = false;
       },
     });
 
-    // local faux progress animation
+    // محاكاة تقدم الرفع
     const interval = setInterval(() => {
       if (this.progress >= 92) {
         clearInterval(interval);
@@ -72,15 +71,5 @@ export class UploadSectionComponent {
       }
       this.progress += Math.random() * 12;
     }, 280);
-  }
-
-  showToast(text: string, danger = false) {
-    const el = document.createElement('div');
-    el.className = `toast-custom position-fixed top-0 start-50 translate-middle-x mt-3 px-4 py-2 rounded shadow ${
-      danger ? 'bg-danger text-white' : 'bg-success text-white'
-    }`;
-    el.innerText = text;
-    document.body.appendChild(el);
-    setTimeout(() => el.remove(), 2800);
   }
 }

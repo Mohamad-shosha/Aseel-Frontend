@@ -14,15 +14,18 @@
   />
   <div class="text-center">
     <i class="bi bi-cloud-arrow-up-fill fs-1 text-muted mb-3"></i>
+
+    <!-- قبل الرفع -->
     <div *ngIf="!selectedFile">
       <h5 class="mb-1 display-5">اسحب الملف هنا أو اضغط لاختياره</h5>
       <p class="upload-meta">يدعم PDF, JPG, PNG, DOCX • الحد الأقصى 10MB</p>
     </div>
 
-    <div *ngIf="selectedFile" class="mt-2">
-      <div class="upload-file-name">{{ fileName }}</div>
+    <!-- أثناء الرفع -->
+    <div *ngIf="selectedFile && isUploading" class="mt-2">
+      <div class="upload-file-name fw-bold">{{ fileName }}</div>
       <div class="upload-meta mt-1">
-        جاري الرفع — {{ progress | number : "1.0-0" }}%
+        جاري رفع المشروع — {{ progress | number : "1.0-0" }}%
       </div>
       <div class="progress mt-2" style="height: 8px">
         <div
@@ -33,5 +36,15 @@
         ></div>
       </div>
     </div>
+  </div>
+</div>
+
+<!-- رسالة النجاح المؤقتة -->
+<div
+  *ngIf="showSuccessPopup"
+  class="result-popup card shadow-lg position-fixed top-50 start-50 translate-middle text-center"
+>
+  <div class="card-header bg-success text-white fw-bold">
+    ✅ تم رفع المشروع بنجاح
   </div>
 </div>

@@ -1,10 +1,34 @@
 .footer {
-  background: #16212f; /* غامق أنيق */
-  border-radius: 12px 12px 0 0;
+  background: #101824;
+  border-radius: 16px 16px 0 0;
   animation: fadeInUp 1s ease;
+  font-family: "Cairo", sans-serif;
 }
 
-/* اللينكات */
+.footer .row {
+  display: flex;
+  justify-content: space-between; /* توزيع الأعمدة بالتساوي */
+  align-items: flex-start; /* محاذاة الأعمدة من الأعلى */
+  flex-wrap: wrap; /* للسماح بالانتقال عند الشاشات الصغيرة */
+  gap: 40px; /* مسافة متوازنة بين الأعمدة */
+}
+
+.footer .col-md-4 {
+  flex: 1; /* كل عمود يأخذ نفس العرض النسبي */
+  min-width: 250px; /* منع تضييق العمود أكثر من اللازم */
+}
+
+/* النصوص */
+.footer h5,
+.footer h6 {
+  color: #ffffff;
+}
+.footer p {
+  color: #adb5bd;
+  line-height: 1.8;
+}
+
+/* الروابط */
 .footer-links li {
   margin-bottom: 0.6rem;
 }
@@ -14,26 +38,37 @@
   text-decoration: none;
   transition: all 0.3s ease;
   position: relative;
-  padding-right: 20px;
+  padding-right: 18px;
 }
 
-/* Hover */
 .footer-links a:hover {
-  color: #0dcaf0; /* سماوي */
+  color: #0dcaf0;
   padding-right: 25px;
 }
 
-/* أيقونات */
+/* الأيقونات */
 .footer i {
   transition: transform 0.3s ease, color 0.3s ease;
 }
-
 .footer li:hover i {
   color: #0dcaf0;
   transform: translateY(-3px) rotate(-5deg);
 }
 
-/* Animation أساسي */
+/* الشعار */
+.logo {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  object-fit: contain;
+  transition: transform 0.4s ease, filter 0.4s ease;
+}
+.logo:hover {
+  transform: scale(1.1);
+  filter: brightness(1.2);
+}
+
+/* الأنيميشن */
 @keyframes fadeInUp {
   from {
     opacity: 0;

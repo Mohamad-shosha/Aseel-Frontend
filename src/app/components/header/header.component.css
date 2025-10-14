@@ -1,37 +1,78 @@
-/* Navbar أساسي */
+/* الأساس */
 .navbar {
   backdrop-filter: blur(12px);
-  background: rgba(255, 255, 255, 0.8) !important; /* شفاف مع لون */
-  border-radius: 12px;
-  padding: 0.8rem 1.5rem;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  background: rgba(255, 255, 255, 0.9) !important;
+  border-radius: 16px;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08);
   transition: all 0.3s ease;
 }
 
-/* اللوجو + النص */
-.navbar .fs-4 {
-  color: #0d6efd;
-  font-weight: 700;
+/* اللوجو */
+.logo {
+  width: 80px;
+  height: 80px;
+  cursor: pointer;
+  transition: transform 0.4s ease, filter 0.4s ease;
 }
 
-/* روابط */
-.navbar a {
+.logo:hover {
+  transform: scale(1.15);
+  filter: brightness(1.2);
+}
+
+/* اسم الموقع */
+.brand-name {
+  letter-spacing: 0.5px;
+}
+
+.links-container {
+  gap: 2.5rem; /* المسافة بين الروابط */
+  text-align: center;
+}
+
+.navbar .container-fluid {
+  display: flex;
+  align-items: center;
+}
+
+.navbar .links-container {
+  flex: 1;
+}
+
+/* الروابط */
+.nav-link-custom {
+  color: #555;
   font-weight: 500;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
   transition: color 0.3s ease, transform 0.2s ease;
   position: relative;
+  font-size: 1rem;
 }
 
-/* عند المرور hover */
-.navbar a:hover {
+/* الأيقونات */
+.nav-link-custom i {
+  font-size: 1.2rem;
+  color: #0d6efd;
+  transition: transform 0.3s ease;
+}
+
+/* hover */
+.nav-link-custom:hover {
   color: #0d6efd !important;
   transform: translateY(-2px);
 }
 
-/* خط صغير متحرك تحت اللينك */
-.navbar a::after {
+.nav-link-custom:hover i {
+  transform: rotate(8deg) scale(1.1);
+}
+
+.nav-link-custom::after {
   content: "";
   position: absolute;
-  bottom: -4px;
+  bottom: -5px;
   left: 0;
   width: 0;
   height: 2px;
@@ -39,6 +80,6 @@
   transition: width 0.3s ease;
 }
 
-.navbar a:hover::after {
+.nav-link-custom:hover::after {
   width: 100%;
 }

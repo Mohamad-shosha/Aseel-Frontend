@@ -1,24 +1,43 @@
 /* ===== Reset & Base ===== */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
 body {
   font-family: "Cairo", "Segoe UI", sans-serif;
   background: #fdfdfd;
   color: #212529;
   line-height: 1.8;
+  direction: rtl;
+  text-align: right;
   overflow-x: hidden;
 }
 
+/* ===== Sections ===== */
 section {
-  padding: 5rem;
+  width: 100vw;
+  max-width: 100%;
+  margin: 0;
+  padding: 3rem 3%;
   position: relative;
-  border-radius: 20px;
-  z-index: 1;
   background-color: rgba(252, 247, 247, 0.5);
+  z-index: 1;
+  border-radius: 20px;
 }
 
-#about {
+body,
+html {
+  overflow-x: hidden;
+}
+
+#about,
+#platform {
   margin-bottom: 50px;
 }
 
+/* ===== Headings ===== */
 h1.display-5,
 h2.display-6 {
   font-weight: 800;
@@ -29,27 +48,94 @@ h2.display-6 {
   -webkit-text-fill-color: transparent;
 }
 
+/* ===== Paragraphs ===== */
 p.lead {
   font-size: 1.1rem;
   color: #5f6368;
   max-width: 850px;
 }
 
-/* ===== Cards (Ghost) ===== */
-.card-ghost {
+/* ===== Ghost Card - القسم الأول (#about) ===== */
+#about .card-ghost {
   background: #ffffff;
-  border-radius: 20px;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
-  padding: 2rem 1.5rem;
+  border-radius: 16px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+  padding: 1.5rem 1.25rem;
   transition: transform 0.15s ease-out, box-shadow 0.2s ease;
-
   border: 1px solid rgba(0, 0, 0, 0.04);
   backdrop-filter: blur(6px);
+  margin: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 280px;
 }
 
-.card-ghost:hover {
-  transform: translateY(-10px) scale(1.05);
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+#about .card-ghost ul {
+  padding: 0;
+  margin: 0.8rem 0;
+  list-style-type: none;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  text-align: right;
+}
+
+#about .card-ghost li {
+  position: relative;
+  padding-right: 1.4rem;
+  margin-bottom: 0.6rem;
+  color: #4b5563;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  text-align: right;
+}
+
+#about .card-ghost li::before {
+  content: "•";
+  position: absolute;
+  right: 0;
+  top: 0.1rem;
+  color: #0dcaf0;
+  font-weight: bold;
+  font-size: 1.1rem;
+  line-height: 1;
+}
+
+/* ===== Ghost Card - القسم الثاني (#platform) ===== */
+#platform .card-ghost {
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+  padding: 1.5rem 1.25rem;
+  transition: transform 0.15s ease-out, box-shadow 0.2s ease;
+  border: 1px solid rgba(0, 0, 0, 0.04);
+  backdrop-filter: blur(6px);
+  margin: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  min-height: 170px;
+  /* height: auto; */
+}
+
+#platform .card-ghost small {
+  margin-top: 0.8rem;
+  display: block;
+  font-size: 0.95rem !important;
+  color: #6c757d !important;
+  line-height: 1.6;
+  text-align: center;
+  padding: 0 0.5rem;
+}
+
+/* ===== العناصر المشتركة بين القسمين ===== */
+.card-ghost > i,
+.card-ghost > h6 {
+  flex-shrink: 0;
 }
 
 .card-ghost i {
@@ -61,6 +147,11 @@ p.lead {
 .card-ghost:hover i {
   transform: scale(1.25) rotate(8deg);
   color: #0dcaf0;
+}
+
+.card-ghost:hover {
+  transform: translateY(-6px) scale(1.05);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
 }
 
 /* ===== Fade-in Animation ===== */
@@ -79,16 +170,7 @@ p.lead {
   }
 }
 
-/* ===== Section Styling =====
-#about {
-  background: linear-gradient(135deg, #f9fafb 0%, #ffffff 100%);
-}
-
-#how {
-  background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
-} */
-
-/* ===== Divider Between Sections ===== */
+/* ===== Section Divider ===== */
 .section-divider {
   width: 80px;
   height: 4px;
@@ -112,7 +194,7 @@ p.lead {
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
 }
 
-/* ===== Upload Card (Special) ===== */
+/* ===== Upload Card (إن وُجد) ===== */
 .upload-card {
   border: 2px dashed rgba(0, 0, 0, 0.15);
   border-radius: 20px;
@@ -124,4 +206,40 @@ p.lead {
   border-color: #0dcaf0;
   background: #f9feff;
   box-shadow: 0 8px 30px rgba(13, 202, 240, 0.2);
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 768px) {
+  .container-main {
+    width: 90%;
+    padding: 1.5rem 3%;
+  }
+
+  /* القسم الأول - الجوال */
+  #about .card-ghost {
+    margin: 0.5rem;
+    padding: 1.25rem 1rem;
+    min-height: 260px;
+  }
+
+  #about .card-ghost li {
+    font-size: 0.9rem;
+    padding-right: 1.2rem;
+    margin-bottom: 0.5rem;
+  }
+
+  /* القسم الثاني - الجوال */
+  #platform .card-ghost {
+    margin: 0.5rem;
+    padding: 1.25rem 1rem;
+    min-height: auto;
+  }
+
+  #platform .card-ghost small {
+    font-size: 0.9rem !important;
+  }
+
+  .card-ghost i {
+    font-size: 2.2rem;
+  }
 }

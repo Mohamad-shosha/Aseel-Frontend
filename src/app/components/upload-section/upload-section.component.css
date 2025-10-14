@@ -1,12 +1,62 @@
 .dropzone {
   transition: all 0.18s ease;
   border-radius: 12px;
+  background: #f8fafc;
+  border: 2px dashed #d0d7de;
+  cursor: pointer;
+  padding: 2rem;
 }
+
 .dropzone.border-primary {
   box-shadow: 0 12px 40px rgba(14, 165, 233, 0.08);
+  border-color: var(--accent2);
 }
+
+/* progress */
 .progress-bar.bg-gradient {
   background: linear-gradient(90deg, var(--accent1), var(--accent2)) !important;
+}
+
+/* popup */
+.result-popup {
+  width: 420px;
+  z-index: 1050;
+  border-radius: 14px;
+  animation: fadeIn 0.4s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -45%);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+}
+
+.success-popup {
+  z-index: 1055;
+  font-weight: 700;
+  font-size: 1rem;
+  animation: fadeInOut 2.5s ease forwards;
+}
+
+@keyframes fadeInOut {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -60%);
+  }
+  10%,
+  90% {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -40%);
+  }
 }
 
 h5.display-5 {

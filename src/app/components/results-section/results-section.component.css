@@ -3,20 +3,39 @@
   box-shadow: 0 8px 24px rgba(239, 68, 68, 0.2);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   cursor: pointer;
-  .bi-x-circle {
-    color: white;
-  }
-
-  h4 {
-    color: white;
-  }
-
-  p {
-    color: rgba(255, 255, 255, 0.9);
-  }
+  border: none;
 }
 
-/* أيقونات جوا الكارد */
+.final-verdict .bi-x-circle {
+  color: white;
+}
+
+.final-verdict h4 {
+  color: white;
+}
+
+.final-verdict p {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* زر داخل الكارد */
+.btn-verdict {
+  background: white;
+  color: #ef4444;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  transition: background 0.3s ease, transform 0.3s ease, color 0.3s ease;
+}
+
+.btn-verdict:hover {
+  background: #fef2f2;
+  transform: scale(1.05);
+  color: #dc2626;
+}
+
+/* أيقونات داخل الكارد */
 .final-verdict i {
   display: inline-block;
   transition: transform 0.4s ease, color 0.3s ease;
@@ -33,97 +52,33 @@
   transform: scale(1.2);
 }
 
+/* ====== كروت النتائج ====== */
 .result-card {
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   cursor: pointer;
-
-  &:hover {
-    transform: translateY(-4px) scale(1.01);
-    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
-  }
 }
 
-.circular-progress {
-  .circle-bg {
-    z-index: 1;
-  }
-
-  .circle-fill {
-    z-index: 2;
-    clip-path: polygon(50% 50%, 50% 0%, 100% 0%, 100% 100%, 0% 100%, 0% 0%);
-    animation: fill 1s ease-out forwards;
-  }
-
-  .percentage {
-    z-index: 3;
-    color: #333;
-  }
+.result-card:hover {
+  transform: translateY(-4px) scale(1.01);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
 }
 
-@keyframes fill {
-  to {
-    clip-path: polygon(50% 50%, 50% 0%, 100% 0%, 100% 100%, 0% 100%, 0% 0%);
-  }
+/* ====== الدائرة ====== */
+.circular-progress .circle-bg {
+  z-index: 1;
 }
 
-.results-grid {
-  .result-card {
-    min-height: 220px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-  }
+.circular-progress .circle-fill {
+  z-index: 2;
+  clip-path: polygon(50% 50%, 50% 0%, 100% 0%, 100% 100%, 0% 100%, 0% 0%);
+  animation: fill 0.8s ease-out forwards;
+  background: conic-gradient(#10b981 0deg, #10b981 0deg, #e5e7eb 0deg);
 }
 
-.result-card {
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  cursor: pointer;
-
-  &:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
-  }
-}
-
-.circular-progress {
-  .circle-bg {
-    z-index: 1;
-  }
-
-  .circle-fill {
-    z-index: 2;
-    clip-path: polygon(50% 50%, 50% 0%, 100% 0%, 100% 100%, 0% 100%, 0% 0%);
-    animation: fill 0.8s ease-out forwards;
-  }
-
-  .percentage {
-    z-index: 3;
-    color: #333;
-  }
-}
-
-.circular-progress {
-  .circle-fill {
-    clip-path: polygon(50% 50%, 50% 0%, 100% 0%, 100% 100%, 0% 100%, 0% 0%);
-    animation: fill 0.8s ease-out forwards;
-    background: conic-gradient(
-      #10b981 0deg,
-      #10b981 0deg,
-      #e5e7eb 0deg
-    ); /* fallback */
-  }
-
-  .percentage {
-    z-index: 3;
-    color: #333;
-    font-size: 0.75rem;
-  }
-}
-
-@keyframes fill {
-  to {
-    clip-path: polygon(50% 50%, 50% 0%, 100% 0%, 100% 100%, 0% 100%, 0% 0%);
-  }
+.circular-progress .percentage {
+  z-index: 3;
+  color: #333;
+  font-size: 0.75rem;
 }
 
 @keyframes fill {
@@ -134,4 +89,17 @@
 
 h5 {
   color: #333;
+}
+
+/* زر تنزيل PDF */
+.results-section .btn-outline-primary {
+  transition: all 0.3s ease;
+  border-width: 2px;
+}
+
+.results-section .btn-outline-primary:hover {
+  background-color: #0d6efd;
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(13, 110, 253, 0.3);
 }

@@ -35,6 +35,15 @@ body {
   direction: rtl;
 }
 
+body,
+html {
+  overflow-x: hidden;
+}
+
+ul {
+  list-style-type: none;
+}
+
 /* ================= Scrollbar ================= */
 ::-webkit-scrollbar {
   width: 10px;
@@ -96,9 +105,10 @@ body {
 .container-main {
   position: relative;
   z-index: 1;
+  width: 80%;
   max-width: 1200px;
-  margin: 0 auto;
-  padding: 2rem;
+  margin: 0 auto; /* لتوسيط المحتوى */
+  padding: 2.5rem 2%;
 }
 
 /* ================= Upload Card ================= */
@@ -265,7 +275,7 @@ body {
 /* ================= Responsive ================= */
 @media (max-width: 768px) {
   .container-main {
-    padding: 1rem;
+    padding: 1rem 2%;
   }
   .half-circle {
     width: 72px;

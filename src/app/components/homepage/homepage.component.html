@@ -2,37 +2,53 @@
 <section id="how" class="text-center py-5 fade-in">
   <h2 class="display-6 fw-bold mb-3">كيف تعمل منصة أصيل؟</h2>
   <p class="lead text-muted mx-auto" style="max-width: 900px">
-    العملية بسيطة وسريعة: ما عليك سوى رفع مشروعك الأكاديمي، وسيقوم النظام
-    بتحليله باستخدام تقنيات الذكاء الاصطناعي، ثم يصدر تقريرًا شاملاً يوضح مستوى
-    الأصالة وأي نقاط تحتاج إلى مراجعة.
+    تعمل منصة <strong>أصيل</strong> على تبسيط عملية التحقق من أصالة المشاريع
+    الأكاديمية من خلال نظام ذكي يعتمد على تحليل المحتوى والرموز والصور بدقة
+    عالية. تبدأ العملية برفع مشروعك الأكاديمي، ليقوم النظام بتحليل مكوناته
+    باستخدام تقنيات الذكاء الاصطناعي، ثم يصدر تقريرًا تفصيليًا يوضح مستوى
+    الأصالة، التطور الأكاديمي للطالب، ومصادر التشابه المحتملة.
   </p>
   <p class="lead text-muted mx-auto" style="max-width: 900px">
-    يهدف رصين إلى تبسيط رحلة التحقق من النزاهة الأكاديمية من خلال ثلاث خطوات
-    أساسية تضمن لك تجربة سهلة ونتائج دقيقة.
+    تمر عملية التحقق بثلاث مراحل أساسية متكاملة تضمن لك نتائج دقيقة وتوضح مدى
+    التزام المشروع بمعايير النزاهة الأكاديمية.
   </p>
 
   <div class="section-divider"></div>
 
   <div class="row g-4 justify-content-center mt-4">
-    <div class="col-6 col-md-3">
-      <div class="card-ghost p-3 text-center">
+    <div class="col-6 col-md-4">
+      <div class="card-ghost text-center">
         <i class="bi bi-upload fs-2 text-primary mb-2"></i>
         <h6 class="mb-0">١. رفع المشروع</h6>
-        <small class="text-muted">تحميل الملف أو المشروع بسهولة</small>
+        <small class="text-muted">
+          يقوم المستخدم برفع ملف المشروع الأكاديمي عبر المنصة، يتم التحقق من نوع
+          الملف وتنظيم البيانات تلقائيًا استعدادًا للتحليل.
+        </small>
       </div>
     </div>
-    <div class="col-6 col-md-3">
-      <div class="card-ghost p-3 text-center">
+
+    <div class="col-6 col-md-4">
+      <div class="card-ghost text-center">
         <i class="bi bi-cpu fs-2 text-info mb-2"></i>
         <h6 class="mb-0">٢. التحليل الذكي</h6>
-        <small class="text-muted">مقارنة شاملة مع مئات المصادر</small>
+        <small class="text-muted">
+          يقوم النظام بتحليل مستوى الطالب من حيث التقدم في التطبيق وتنفيذ
+          التصميم، كما تُجرى مقارنة شاملة مع مشاريع سابقة وقواعد البيانات
+          لاكتشاف أي تشابه نصي أو بصري باستخدام تقنيات الذكاء الاصطناعي لتحليل
+          النصوص والصور.
+        </small>
       </div>
     </div>
-    <div class="col-6 col-md-3">
-      <div class="card-ghost p-3 text-center">
+
+    <div class="col-6 col-md-4">
+      <div class="card-ghost text-center">
         <i class="bi bi-file-earmark-text fs-2 text-success mb-2"></i>
         <h6 class="mb-0">٣. التقرير النهائي</h6>
-        <small class="text-muted">عرض نسبة الأصالة ومؤشرات الإبداع</small>
+        <small class="text-muted">
+          بعد انتهاء التحليل، تُعرض النتائج في تقرير شامل يوضح نسبة الأصالة
+          ومؤشرات الإبداع، مع روابط للمشاريع المتطابقة أو المشابهة، وصور من
+          الإنترنت ذات تطابق مرئي تم اكتشافها آليًا.
+        </small>
       </div>
     </div>
   </div>
@@ -45,7 +61,7 @@
   <div class="row g-4 justify-content-center mt-4">
     <div class="col-12 col-md-6 col-lg-4" *ngFor="let claim of claims">
       <div class="card-ghost p-3 text-start">
-        <i class="bi bi-check-circle text-primary fs-4 mb-2"></i>
+        <i class="bi bi-check-circle text-primary fs-4"></i>
         <p class="mb-0 text-muted">{{ claim }}</p>
       </div>
     </div>

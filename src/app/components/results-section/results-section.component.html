@@ -1,141 +1,160 @@
-<!-- Web Entities -->
-<div *ngIf="webEntities.length" class="mb-5">
-  <h5 class="fw-bold mb-3 d-flex align-items-center gap-2">
-    <i class="bi bi-tags text-info"></i> الكيانات المكتشفة
-  </h5>
-  <div class="row g-3">
-    <div class="col-md-6 col-lg-4" *ngFor="let entity of webEntities" [@fadeIn]>
-      <div class="result-card p-3 rounded-3 bg-white shadow-sm h-100">
-        <div class="d-flex justify-content-between align-items-start mb-2">
-          <div>
-            <div class="fw-bold">{{ entity.name }}</div>
-            <small class="text-muted">
-              Score: {{ entity.score | number : "1.2-2" }}
-            </small>
+<section *ngIf="visible" class="results-section container py-5">
+  <!-- Web Entities -->
+  <div *ngIf="webEntities.length" class="mb-5">
+    <h5 class="fw-bold mb-3 d-flex align-items-center gap-2">
+      <i class="bi bi-tags text-info"></i> الكيانات المكتشفة
+    </h5>
+    <div class="row g-3">
+      <div
+        class="col-md-6 col-lg-4"
+        *ngFor="let entity of webEntities"
+        [@fadeIn]
+      >
+        <div class="result-card p-3 rounded-3 bg-white shadow-sm h-100">
+          <div class="d-flex justify-content-between align-items-start mb-2">
+            <div>
+              <div class="fw-bold">{{ entity.name }}</div>
+              <small class="text-muted">
+                Score: {{ entity.score | number : "1.2-2" }}
+              </small>
+            </div>
+            <app-circular-progress
+              [percentage]="entity.score * 100"
+              [size]="60"
+              [strokeWidth]="6"
+              [color]="getEntityColor(entity.score)"
+            ></app-circular-progress>
           </div>
-          <app-circular-progress
-            [percentage]="entity.score * 100"
-            [size]="60"
-            [strokeWidth]="6"
-            [color]="getEntityColor(entity.score)"
-          ></app-circular-progress>
         </div>
       </div>
     </div>
   </div>
-</div>
 
-<!-- Full Matching Images -->
-<div *ngIf="fullMatchingImages.length" class="mb-5">
-  <h5 class="fw-bold mb-3 d-flex align-items-center gap-2">
-    <i class="bi bi-image text-success"></i> صور متطابقة تمامًا ({{
-      fullMatchingImages.length
-    }})
-  </h5>
-  <div class="row g-3">
-    <div
-      class="col-md-4 col-lg-3"
-      *ngFor="let url of fullMatchingImages; let i = index"
-      [@fadeIn]
-    >
-      <a [href]="url" target="_blank" class="d-block text-decoration-none">
-        <div class="result-card rounded-3 overflow-hidden shadow-sm h-100">
-          <img
-            [src]="url"
-            [alt]="'Match ' + i"
-            class="w-100"
-            style="height: 150px; object-fit: cover"
-            (error)="fullMatchingImages.splice(i, 1)"
-          />
-          <div class="p-2 bg-white">
-            <small class="text-muted text-truncate d-block">
-              {{ url ? url.substring(0, 40) + "..." : "رابط غير متاح" }}
-            </small>
-          </div>
-        </div>
-      </a>
-    </div>
-  </div>
-</div>
-
-<!-- Visually Similar Images -->
-<div *ngIf="visuallySimilarImages.length" class="mb-5">
-  <h5 class="fw-bold mb-3 d-flex align-items-center gap-2">
-    <i class="bi bi-images text-warning"></i> صور مشابهة بصريًا ({{
-      visuallySimilarImages.length
-    }})
-  </h5>
-  <div class="row g-3">
-    <div
-      class="col-md-4 col-lg-3"
-      *ngFor="let url of visuallySimilarImages; let i = index"
-      [@fadeIn]
-    >
-      <a [href]="url" target="_blank" class="d-block text-decoration-none">
-        <div class="result-card rounded-3 overflow-hidden shadow-sm h-100">
-          <img
-            [src]="url"
-            [alt]="'Similar ' + i"
-            class="w-100"
-            style="height: 150px; object-fit: cover"
-            (error)="visuallySimilarImages.splice(i, 1)"
-          />
-          <div class="p-2 bg-white">
-            <small class="text-muted text-truncate d-block">
-              {{ url ? url.substring(0, 40) + "..." : "رابط غير متاح" }}
-            </small>
-          </div>
-        </div>
-      </a>
-    </div>
-  </div>
-</div>
-
-<!-- Pages With Matching Images -->
-<div *ngIf="matchingPages.length" class="mb-5">
-  <h5 class="fw-bold mb-3 d-flex align-items-center gap-2">
-    <i class="bi bi-link-45deg text-secondary"></i> صفحات تحتوي على الصورة ({{
-      matchingPages.length
-    }})
-  </h5>
-  <div class="row g-3">
-    <div
-      class="col-md-6 col-lg-4"
-      *ngFor="let url of matchingPages; let i = index"
-      [@fadeIn]
-    >
-      <a [href]="url" target="_blank" class="text-decoration-none">
-        <div
-          class="result-card p-3 rounded-3 bg-white shadow-sm h-100 d-flex align-items-center"
-        >
-          <div class="d-flex align-items-center gap-2">
-            <i class="bi bi-globe fs-4 text-muted"></i>
-            <div>
-              <div class="fw-bold text-truncate" style="max-width: 250px">
-                {{ url ? url.substring(0, 50) + "..." : "رابط غير متاح" }}
-              </div>
-              <small class="text-primary">زيارة الصفحة</small>
+  <!-- Full Matching Images -->
+  <div *ngIf="fullMatchingImages.length" class="mb-5">
+    <h5 class="fw-bold mb-3 d-flex align-items-center gap-2">
+      <i class="bi bi-image text-success"></i> صور متطابقة تمامًا ({{
+        fullMatchingImages.length
+      }})
+    </h5>
+    <div class="row g-3">
+      <div
+        class="col-md-4 col-lg-3"
+        *ngFor="let url of fullMatchingImages; let i = index"
+        [@fadeIn]
+      >
+        <a [href]="url" target="_blank" class="d-block text-decoration-none">
+          <div class="result-card rounded-3 overflow-hidden shadow-sm h-100">
+            <img
+              [src]="url"
+              [alt]="'Match ' + i"
+              class="w-100"
+              style="height: 150px; object-fit: cover"
+              (error)="fullMatchingImages.splice(i, 1)"
+            />
+            <div class="p-2 bg-white">
+              <small class="text-muted text-truncate d-block">
+                {{ url ? url.substring(0, 40) + "..." : "رابط غير متاح" }}
+              </small>
             </div>
           </div>
-        </div>
-      </a>
+        </a>
+      </div>
     </div>
   </div>
-</div>
 
-<!-- Best Guess Labels -->
-<div *ngIf="bestGuessLabels.length" class="mb-5">
-  <h5 class="fw-bold mb-3 d-flex align-items-center gap-2">
-    <i class="bi bi-lightbulb text-warning"></i> أفضل تصنيفات مقترحة ({{
-      bestGuessLabels.length
-    }})
-  </h5>
-  <div class="d-flex flex-wrap gap-2">
-    <span
-      *ngFor="let label of bestGuessLabels"
-      class="badge bg-primary text-white p-2"
-      [@fadeIn]
-      >{{ label }}</span
-    >
+  <!-- Visually Similar Images -->
+  <div *ngIf="visuallySimilarImages.length" class="mb-5">
+    <h5 class="fw-bold mb-3 d-flex align-items-center gap-2">
+      <i class="bi bi-images text-warning"></i> صور مشابهة بصريًا ({{
+        visuallySimilarImages.length
+      }})
+    </h5>
+    <div class="row g-3">
+      <div
+        class="col-md-4 col-lg-3"
+        *ngFor="let url of visuallySimilarImages; let i = index"
+        [@fadeIn]
+      >
+        <a [href]="url" target="_blank" class="d-block text-decoration-none">
+          <div class="result-card rounded-3 overflow-hidden shadow-sm h-100">
+            <img
+              [src]="url"
+              [alt]="'Similar ' + i"
+              class="w-100"
+              style="height: 150px; object-fit: cover"
+              (error)="visuallySimilarImages.splice(i, 1)"
+            />
+            <div class="p-2 bg-white">
+              <small class="text-muted text-truncate d-block">
+                {{ url ? url.substring(0, 40) + "..." : "رابط غير متاح" }}
+              </small>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
   </div>
-</div>
+
+  <!-- Pages With Matching Images -->
+  <div *ngIf="matchingPages.length" class="mb-5">
+    <h5 class="fw-bold mb-3 d-flex align-items-center gap-2">
+      <i class="bi bi-link-45deg text-secondary"></i> صفحات تحتوي على الصورة ({{
+        matchingPages.length
+      }})
+    </h5>
+    <div class="row g-3">
+      <div
+        class="col-md-6 col-lg-4"
+        *ngFor="let url of matchingPages; let i = index"
+        [@fadeIn]
+      >
+        <a [href]="url" target="_blank" class="text-decoration-none">
+          <div
+            class="result-card p-3 rounded-3 bg-white shadow-sm h-100 d-flex align-items-center"
+          >
+            <div class="d-flex align-items-center gap-2">
+              <i class="bi bi-globe fs-4 text-muted"></i>
+              <div>
+                <div class="fw-bold text-truncate" style="max-width: 250px">
+                  {{ url ? url.substring(0, 50) + "..." : "رابط غير متاح" }}
+                </div>
+                <small class="text-primary">زيارة الصفحة</small>
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Best Guess Labels -->
+  <div *ngIf="bestGuessLabels.length" class="mb-5">
+    <h5 class="fw-bold mb-3 d-flex align-items-center gap-2">
+      <i class="bi bi-lightbulb text-warning"></i> أفضل تصنيفات مقترحة ({{
+        bestGuessLabels.length
+      }})
+    </h5>
+    <div class="d-flex flex-wrap gap-2">
+      <span
+        *ngFor="let label of bestGuessLabels"
+        class="badge bg-primary text-white p-2"
+        [@fadeIn]
+        >{{ label }}</span
+      >
+    </div>
+  </div>
+
+  <!-- زر تنزيل PDF -->
+  <div class="text-center mt-5 mb-3">
+    <button
+      (click)="generatePdf()"
+      class="btn btn-outline-primary px-4 py-2 rounded-pill shadow-sm"
+      type="button"
+    >
+      <i class="bi bi-file-earmark-pdf me-2"></i> تنزيل تقرير PDF
+    </button>
+  </div>
+</section>
+
+<!-- باقي الأنماط كما هي -->
