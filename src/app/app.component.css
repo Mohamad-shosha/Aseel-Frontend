@@ -1,8 +1,3 @@
-/* .app-background {
-  background: linear-gradient(135deg, #667eea, #764ba2);
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  color: #fff;
-} */
 :host {
   display: block;
 }
@@ -15,6 +10,8 @@ h2.display-6 {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
+
+/* الزر الأساسي */
 .scroll-top-btn {
   position: fixed;
   bottom: 25px;
@@ -45,12 +42,27 @@ h2.display-6 {
   animation: arrowMove 1.5s infinite;
 }
 
+/* أنيميشن الحركة */
 @keyframes bounce {
-  0%,
-  100% {
+  0%, 100% {
     transform: translateY(0);
   }
   50% {
     transform: translateY(-10px);
+  }
+}
+
+/* ✅ الميديا كويري لتصغير الزر بدون كسر الأنيميشن */
+@media (max-width: 600px) {
+  .scroll-top-btn {
+    scale: 0.75; /* خاصية جديدة في CSS 2023 تحافظ على transform الأصلي */
+    transform-origin: bottom left;
+  }
+}
+
+@media (max-width: 400px) {
+  .scroll-top-btn {
+    scale: 0.65;
+    transform-origin: bottom left;
   }
 }
