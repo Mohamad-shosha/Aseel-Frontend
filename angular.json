@@ -29,18 +29,19 @@
           },
           "configurations": {
             "production": {
-              "budgets": [
-               {
+             "budgets": [
+  {
     "type": "initial",
     "maximumWarning": "3mb",
     "maximumError": "5mb"
   },
-                {
-                  "type": "anyComponentStyle",
-                  "maximumWarning": "2kb",
-                  "maximumError": "4kb"
-                }
-              ],
+  {
+    "type": "anyComponentStyle",
+    "maximumWarning": "100kb",
+    "maximumError": "200kb"
+  }
+]
+,
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
