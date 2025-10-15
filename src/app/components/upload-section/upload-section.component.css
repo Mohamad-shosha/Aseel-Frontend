@@ -1,5 +1,6 @@
+/* Dropzone */
 .dropzone {
-  transition: all 0.18s ease;
+  transition: all 0.2s ease;
   border-radius: 12px;
   background: #f8fafc;
   border: 2px dashed #d0d7de;
@@ -8,63 +9,90 @@
 }
 
 .dropzone.border-primary {
-  box-shadow: 0 12px 40px rgba(14, 165, 233, 0.08);
   border-color: var(--accent2);
+  box-shadow: 0 8px 30px rgba(14, 165, 233, 0.08);
 }
 
-/* progress */
+/* Progress bar */
 .progress-bar.bg-gradient {
   background: linear-gradient(90deg, var(--accent1), var(--accent2)) !important;
 }
 
-/* popup */
-.result-popup {
-  width: 420px;
-  z-index: 1050;
-  border-radius: 14px;
-  animation: fadeIn 0.4s ease;
+/* ✅ Toast نجاح */
+.success-toast {
+  border-radius: 14px !important;
+  box-shadow: 0 4px 18px rgba(13, 110, 253, 0.25) !important;
+  border: 2px solid rgba(13, 110, 253, 0.3) !important;
+  backdrop-filter: blur(8px);
+  animation: fadeInTop 0.4s ease;
 }
 
-@keyframes fadeIn {
+.success-toast-title {
+  font-weight: 700;
+  font-size: 1.05rem;
+  letter-spacing: -0.3px;
+}
+
+/* ❌ Toast خطأ */
+.error-toast {
+  border-radius: 14px !important;
+  box-shadow: 0 4px 18px rgba(220, 53, 69, 0.25) !important;
+  border: 2px solid rgba(220, 53, 69, 0.3) !important;
+  backdrop-filter: blur(8px);
+  animation: fadeInTop 0.4s ease;
+}
+
+.error-toast-title {
+  font-weight: 700;
+  font-size: 1.05rem;
+  letter-spacing: -0.3px;
+}
+
+/* Animations */
+@keyframes fadeInTop {
   from {
     opacity: 0;
-    transform: translate(-50%, -45%);
+    transform: translateY(-25px);
   }
   to {
     opacity: 1;
-    transform: translate(-50%, -50%);
+    transform: translateY(0);
   }
 }
 
-.success-popup {
-  z-index: 1055;
-  font-weight: 700;
-  font-size: 1rem;
-  animation: fadeInOut 2.5s ease forwards;
-}
-
-@keyframes fadeInOut {
-  0% {
-    opacity: 0;
-    transform: translate(-50%, -60%);
-  }
-  10%,
-  90% {
-    opacity: 1;
-    transform: translate(-50%, -50%);
-  }
-  100% {
-    opacity: 0;
-    transform: translate(-50%, -40%);
-  }
-}
-
+/* نص العنوان الرئيسي */
 h5.display-5 {
   font-weight: 800;
   letter-spacing: -0.5px;
-  color: #1a1a1a;
   background: linear-gradient(90deg, #0d6efd, #0dcaf0);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   font-size: 25px;
+}
+
+/* نص التفاصيل */
+.upload-meta {
+  color: #64748b;
+  font-size: 14px;
+}
+
+/* 📱 تحسين الموبايل */
+@media (max-width: 600px) {
+  .dropzone {
+    padding: 1.5rem;
+  }
+
+  h5.display-5 {
+    font-size: 18px;
+  }
+
+  .upload-meta {
+    font-size: 13px;
+  }
+
+  .success-toast,
+  .error-toast {
+    width: 90% !important;
+    font-size: 0.85rem;
+  }
 }

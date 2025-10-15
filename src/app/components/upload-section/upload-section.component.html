@@ -12,39 +12,31 @@
     class="d-none"
     (change)="onFileChange($event)"
   />
-  <div class="text-center">
-    <i class="bi bi-cloud-arrow-up-fill fs-1 text-muted mb-3"></i>
 
-    <!-- قبل الرفع -->
-    <div *ngIf="!selectedFile">
+  <div class="text-center dropzone-content">
+    <i class="bi bi-cloud-arrow-up-fill fs-1 text-muted mb-3 upload-icon"></i>
+
+    <!-- الرسالة الأساسية -->
+    <div class="upload-info" [class.dimmed]="isUploading">
       <h5 class="mb-1 display-5">اسحب الملف هنا أو اضغط لاختياره</h5>
       <p class="upload-meta">يدعم PDF, JPG, PNG, DOCX • الحد الأقصى 10MB</p>
     </div>
 
     <!-- أثناء الرفع -->
-    <div *ngIf="selectedFile && isUploading" class="mt-2">
+    <div *ngIf="selectedFile" class="upload-progress mt-3">
       <div class="upload-file-name fw-bold">{{ fileName }}</div>
-      <div class="upload-meta mt-1">
-        جاري رفع المشروع — {{ progress | number : "1.0-0" }}%
+
+      <div *ngIf="isUploading" class="upload-meta mt-1">
+        جاري رفع المشروع — {{ progress | number: '1.0-0' }}%
       </div>
-      <div class="progress mt-2" style="height: 8px">
+
+      <div class="progress mt-2" style="height: 8px" *ngIf="isUploading">
         <div
           class="progress-bar bg-gradient"
           role="progressbar"
           [style.width]="progress + '%'"
-          [attr.aria-valuenow]="progress"
         ></div>
       </div>
     </div>
-  </div>
-</div>
-
-<!-- رسالة النجاح المؤقتة -->
-<div
-  *ngIf="showSuccessPopup"
-  class="result-popup card shadow-lg position-fixed top-50 start-50 translate-middle text-center"
->
-  <div class="card-header bg-success text-white fw-bold">
-    ✅ تم رفع المشروع بنجاح
   </div>
 </div>

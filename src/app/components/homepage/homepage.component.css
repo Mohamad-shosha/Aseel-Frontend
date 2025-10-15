@@ -89,11 +89,13 @@ p.lead {
   padding: 0 0.5rem;
 }
 
-/* ===== كروت قسم "كيف تعمل" (#how) ===== */
 #how .card-ghost {
-  height: 320px;
-  padding: 1.5rem 1.25rem; /* يُفضل إزالته من HTML بدل استخدام !important */
+  min-height: 320px;
+  height: auto;
+  padding: 1.5rem 1.25rem;
 }
+
+
 
 #how .card-ghost small {
   flex-grow: 1;
@@ -251,6 +253,11 @@ p.lead {
 
 /* ===== Mobile (≤576px) ===== */
 @media (max-width: 576px) {
+  #how .card-ghost {
+  min-height: auto;
+  height: auto;
+  padding: 1.25rem;
+}
   #about .card-ghost li::before {
     content: none;
   }
