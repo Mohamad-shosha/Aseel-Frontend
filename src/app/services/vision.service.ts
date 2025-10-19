@@ -4,7 +4,7 @@ import { Observable, map } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class VisionService {
-  private api = 'https://resourceful-expression.up.railway.app/api/vision/upload';
+  private api = 'https://designtrace-production.up.railway.app/api/vision/upload';
 
   constructor(private http: HttpClient) {}
 
