@@ -26,6 +26,7 @@
   backdrop-filter: blur(8px);
   animation: fadeInTop 0.4s ease;
 }
+
 .upload-file-name {
   max-width: 90%;
   overflow: hidden;
@@ -37,7 +38,6 @@
   font-size: 0.95rem;
   word-break: break-all;
 }
-
 
 .success-toast-title {
   font-weight: 700;
@@ -52,12 +52,12 @@
   border: 2px solid rgba(220, 53, 69, 0.3) !important;
   backdrop-filter: blur(8px);
   animation: fadeInTop 0.4s ease;
-}
-
-.error-toast-title {
-  font-weight: 700;
-  font-size: 1.05rem;
-  letter-spacing: -0.3px;
+  width: 80%;
+  max-width: 350px;
+  margin: 0 auto;
+  color: #dc3545;
+  font-weight: 600;
+  font-size: 14px;
 }
 
 /* Animations */
@@ -86,6 +86,41 @@ h5.display-5 {
 .upload-meta {
   color: #64748b;
   font-size: 14px;
+}
+
+/* 🔐 Password Input */
+.password-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.password-input {
+  width: 80%;
+  max-width: 320px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 1.8px solid #d0d7de;
+  font-size: 14px;
+  color: #0d1b2a;
+  transition: all 0.2s ease-in-out;
+  direction: rtl;
+  text-align: center;
+}
+
+.password-input:focus {
+  outline: none;
+  border-color: var(--accent2);
+  box-shadow: 0 0 8px rgba(14, 165, 233, 0.15);
+}
+
+.password-input::placeholder {
+  color: #9ca3af;
+}
+
+/* أثناء التحميل */
+.upload-info.dimmed {
+  opacity: 0.6;
+  pointer-events: none;
 }
 
 /* 📱 تحسين الموبايل */

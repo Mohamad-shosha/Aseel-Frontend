@@ -22,6 +22,17 @@
       <p class="upload-meta">يدعم PDF, JPG, PNG, DOCX • الحد الأقصى 10MB</p>
     </div>
 
+    <!-- 🔐 حقل كلمة السر -->
+    <div class="password-wrapper mt-3">
+      <input
+        type="password"
+        [(ngModel)]="accessPassword"
+        placeholder="أدخل كلمة السر للوصول"
+        class="password-input"
+        (click)="$event.stopPropagation()"
+      />
+    </div>
+
     <!-- أثناء الرفع -->
     <div *ngIf="selectedFile" class="upload-progress mt-3">
       <div class="upload-file-name fw-bold">{{ fileName }}</div>
@@ -38,5 +49,12 @@
         ></div>
       </div>
     </div>
+
+    <!-- ⚠️ Toast -->
+    <div
+      *ngIf="errorMessage"
+      class="error-toast mt-3 p-3 text-center"
+      [innerText]="errorMessage"
+    ></div>
   </div>
 </div>

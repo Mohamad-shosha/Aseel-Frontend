@@ -16,6 +16,9 @@ export class UploadSectionComponent {
   fileName = '';
   selectedFile?: File;
 
+  accessPassword: string = '';
+  errorMessage: string = '';
+
   constructor(private vision: VisionService) {}
 
   onDragOver(evt: DragEvent) {
@@ -41,6 +44,12 @@ export class UploadSectionComponent {
   }
 
   startUpload(file: File) {
+    if (!this.accessPassword) {
+      this.errorMessage = '⚠️ من فضلك أدخل كلمة السر قبل رفع المشروع';
+      setTimeout(() => (this.errorMessage = ''), 2500);
+      return;
+    }
+
     this.selectedFile = file;
     this.fileName = file.name;
     this.isUploading = true;
@@ -55,7 +64,7 @@ export class UploadSectionComponent {
       didOpen: () => Swal.showLoading(),
     });
 
-    this.vision.uploadImage(file).subscribe({
+    this.vision.uploadImage(file, this.accessPassword).subscribe({
       next: (resp: any) => {
         this.progress = 100;
         this.isUploading = false;
@@ -87,7 +96,7 @@ export class UploadSectionComponent {
           toast: true,
           position: 'top',
           icon: 'error',
-          title: 'حدث خطأ أثناء رفع الملف!',
+          title: '❌ كلمة السر غير صحيحة أو حدث خطأ أثناء رفع الملف!',
           showConfirmButton: false,
           timer: 3000,
           background: '#fff0f0',

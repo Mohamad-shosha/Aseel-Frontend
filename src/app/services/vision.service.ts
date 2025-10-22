@@ -8,11 +8,12 @@ export class VisionService {
 
   constructor(private http: HttpClient) {}
 
-  uploadImage(file: File): Observable<any> {
+  // 🟢 الدالة دلوقتي تستقبل password
+  uploadImage(file: File, password: string): Observable<any> {
     const fd = new FormData();
     fd.append('file', file);
+    fd.append('password', password); // ✅ تم تعريف المتغير هنا
 
-    // نرسل الطلب ونحول النص ل object
     return this.http
       .post(this.api, fd, { responseType: 'text' })
       .pipe(map((text: string) => this.parseTextResponse(text)));
@@ -34,29 +35,12 @@ export class VisionService {
       line = line.trim();
       if (!line) continue;
 
-      // تحديد القسم الحالي
-      if (line.startsWith('🔹 Web Entities')) {
-        currentSection = 'Web Entities';
-        continue;
-      } else if (line.startsWith('🔹 Full Matching Images')) {
-        currentSection = 'Full Matching Images';
-        continue;
-      } else if (line.startsWith('🔹 Visually Similar Images')) {
-        currentSection = 'Visually Similar Images';
-        continue;
-      } else if (line.startsWith('🔹 Pages With Matching Images')) {
-        currentSection = 'Pages With Matching Images';
-        continue;
-      } else if (line.startsWith('🔹 Best Guess Labels')) {
-        currentSection = 'Best Guess Labels';
-        continue;
-      }
-
-      // إضافة العناصر حسب القسم
-      if (line.startsWith('- ')) {
-        const item = line.substring(2).trim();
-        data[currentSection].push(item);
-      }
+      if (line.startsWith('🔹 Web Entities')) currentSection = 'Web Entities';
+      else if (line.startsWith('🔹 Full Matching Images')) currentSection = 'Full Matching Images';
+      else if (line.startsWith('🔹 Visually Similar Images')) currentSection = 'Visually Similar Images';
+      else if (line.startsWith('🔹 Pages With Matching Images')) currentSection = 'Pages With Matching Images';
+      else if (line.startsWith('🔹 Best Guess Labels')) currentSection = 'Best Guess Labels';
+      else if (line.startsWith('- ')) data[currentSection].push(line.substring(2).trim());
     }
 
     return data;
