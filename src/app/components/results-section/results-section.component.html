@@ -116,11 +116,12 @@
             <div class="d-flex align-items-center gap-2">
               <i class="bi bi-globe fs-4 text-muted"></i>
               <div>
-                <div class="fw-bold text-truncate" style="max-width: 250px">
-                  {{ url ? url.substring(0, 50) + "..." : "رابط غير متاح" }}
-                </div>
-                <small class="text-primary">زيارة الصفحة</small>
-              </div>
+  <div class="fw-bold text-dark text-truncate" style="max-width: 220px">
+    {{ extractDomain(url) }}
+  </div>
+  <small class="text-primary fw-semibold">زيارة الصفحة</small>
+</div>
+
             </div>
           </div>
         </a>

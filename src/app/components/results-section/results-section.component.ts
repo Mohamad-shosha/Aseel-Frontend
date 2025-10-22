@@ -53,6 +53,15 @@ export class ResultsSectionComponent implements OnInit, OnChanges {
     if (changes['analysisData']) this.updateData();
   }
 
+    extractDomain(url: string): string {
+    try {
+      const hostname = new URL(url).hostname.replace("www.", "");
+      return hostname.length > 25 ? hostname.substring(0, 25) + "..." : hostname;
+    } catch {
+      return "رابط غير صالح";
+    }
+  }
+  
   private updateData() {
     if (!this.analysisData) return;
     let data: any =

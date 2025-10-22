@@ -204,6 +204,12 @@ p.lead {
     content: none;
   }
 
+  @media (max-width: 576px) {
+  #claims {
+    display: none !important;
+  }
+}
+
   /* الأقسام */
   section {
     padding: 2rem 1.25rem;
