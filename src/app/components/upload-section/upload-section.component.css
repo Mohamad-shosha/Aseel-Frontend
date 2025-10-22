@@ -117,6 +117,11 @@ h5.display-5 {
   color: #9ca3af;
 }
 
+.password-input.small-font {
+  font-size: 0.85rem; /* حجم أصغر من الافتراضي */
+  padding: 6px 10px;  /* لو حابب تقلل padding برضه */
+}
+
 /* أثناء التحميل */
 .upload-info.dimmed {
   opacity: 0.6;
