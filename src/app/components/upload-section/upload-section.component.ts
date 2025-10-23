@@ -45,7 +45,7 @@ export class UploadSectionComponent {
 
   startUpload(file: File) {
     if (!this.accessPassword) {
-      this.errorMessage = '⚠️ من فضلك أدخل كلمة السر قبل رفع المشروع';
+      this.errorMessage = 'من فضلك أدخل كلمة السر قبل رفع المشروع';
       setTimeout(() => (this.errorMessage = ''), 2500);
       return;
     }
@@ -66,6 +66,7 @@ export class UploadSectionComponent {
 
     this.vision.uploadImage(file, this.accessPassword).subscribe({
       next: (resp: any) => {
+        // ✅ response هنا من السيرفر يعني الباسورد صح
         this.progress = 100;
         this.isUploading = false;
         Swal.close();
@@ -88,25 +89,17 @@ export class UploadSectionComponent {
 
         this.uploadComplete.emit(resp);
       },
-      error: () => {
+      error: (err) => {
+        // ⚠️ هنا لو الباسورد غلط (401) أو أي خطأ آخر
         this.isUploading = false;
         Swal.close();
 
-        Swal.fire({
-          toast: true,
-          position: 'top',
-          icon: 'error',
-          title: '❌ كلمة السر غير صحيحة أو حدث خطأ أثناء رفع الملف!',
-          showConfirmButton: false,
-          timer: 3000,
-          background: '#fff0f0',
-          color: '#b91c1c',
-          width: window.innerWidth < 600 ? '90%' : '380px',
-          customClass: {
-            popup: 'error-toast',
-            title: 'error-toast-title',
-          },
-        });
+        const msg =
+          err.status === 401
+            ? ' كلمة السر غير صحيحة!'
+            : ' حدث خطأ أثناء رفع الملف!';
+
+        this.showErrorToast(msg);
       },
     });
 
@@ -117,5 +110,23 @@ export class UploadSectionComponent {
       }
       this.progress += Math.random() * 10;
     }, 250);
+  }
+
+  showErrorToast(msg: string) {
+    Swal.fire({
+      toast: true,
+      position: 'top',
+      icon: 'error',
+      title: msg,
+      showConfirmButton: false,
+      timer: 3000,
+      background: '#fff0f0',
+      color: '#b91c1c',
+      width: window.innerWidth < 600 ? '90%' : '380px',
+      customClass: {
+        popup: 'error-toast',
+        title: 'error-toast-title',
+      },
+    });
   }
 }
