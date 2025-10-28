@@ -31,7 +31,7 @@
     "pdfmake": "^0.2.20",
     "pdfmake-arabic": "^0.0.1",
     "rxjs": "~7.5.0",
-    "sweetalert2": "^11.26.2",
+    "sweetalert2": "^11.26.3",
     "three": "^0.152.2",
     "tslib": "^2.3.0",
     "vanta": "^0.5.24",
