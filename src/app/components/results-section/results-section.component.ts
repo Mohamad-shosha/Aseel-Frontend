@@ -138,13 +138,13 @@ export class ResultsSectionComponent implements OnInit, OnChanges {
       return '';
     }
   }
-
 async generatePdf() {
   try {
     const content: any[] = [];
 
     const logoBase64 = await this.loadImageAsBase64('assets/Logo-Assel.png');
 
+    // ✅ شعار المشروع (في الأعلى)
     if (logoBase64) {
       content.push({
         image: logoBase64,
@@ -154,103 +154,123 @@ async generatePdf() {
       });
     }
 
+    // ✅ العنوان الرئيسي
     content.push({
       text: 'Aseel: Academic Project Originality Analyzer',
       style: 'header',
       margin: [0, 0, 0, 10],
     });
 
+    // ✅ خط فاصل
     content.push({
       canvas: [
-        { type: 'line', x1: 0, y1: 0, x2: 500, y2: 0, lineWidth: 1.2, lineColor: '#007bff' },
+        {
+          type: 'line',
+          x1: 0,
+          y1: 0,
+          x2: 515,
+          y2: 0,
+          lineWidth: 2,
+          lineColor: '#0056B3',
+        },
       ],
-      margin: [0, 10, 0, 15],
+      margin: [0, 10, 0, 25],
     });
 
+    // ✅ فقرة تعريفية
     content.push({
-      text: `Aseel is an intelligent academic platform that ensures academic integrity by analyzing the originality of university projects using advanced AI technologies. The platform helps universities, faculty members, and students analyze projects, detect similarities, and assess creativity levels.`,
+      text: `Aseel is an intelligent academic platform ensuring academic integrity by analyzing originality of university projects using advanced AI. The system assists universities, faculty members, and students in detecting similarities and evaluating creativity with precision.`,
       style: 'paragraph',
-      margin: [0, 0, 0, 15],
+      alignment: 'justify',
+      margin: [30, 0, 30, 20],
     });
 
+    // ✅ عنوان قسم النتائج
     content.push({
       text: 'Analysis Results',
       style: 'sectionTitle',
-      margin: [0, 0, 0, 10],
+      alignment: 'center',
+      margin: [0, 10, 0, 20],
     });
 
-    // ✅ جدول Web Entities
+    // ✅ جدول الكيانات المكتشفة (Web Entities)
     if (this.webEntities.length) {
       content.push({
         text: `Detected Entities (${this.webEntities.length})`,
         style: 'subHeader',
-        margin: [0, 5, 0, 5],
+        alignment: 'center',
+        margin: [0, 0, 0, 10],
       });
 
       content.push({
         table: {
-          widths: ['*', 50],
+          widths: ['70%', '30%'],
           body: [
-            [{ text: 'Entity', style: 'tableHeader' }, { text: 'Score', style: 'tableHeader' }],
+            [
+              { text: 'Entity', style: 'tableHeader' },
+              { text: 'Score', style: 'tableHeader' },
+            ],
             ...this.webEntities.map(ent => [
               { text: ent.name, style: 'tableCell' },
-              { text: ent.score.toFixed(2), style: 'tableCell', color: this.getEntityColor(ent.score) },
+              {
+                text: ent.score.toFixed(2),
+                style: 'tableCell',
+                color: this.getEntityColor(ent.score),
+              },
             ]),
           ],
         },
         layout: {
-          fillColor: (rowIndex: number) => (rowIndex === 0 ? '#007bff33' : null),
-          hLineWidth: () => 0.7,
-          vLineWidth: () => 0.7,
-          hLineColor: () => '#007bff66',
-          vLineColor: () => '#007bff66',
-          paddingLeft: () => 8,
-          paddingRight: () => 8,
+          fillColor: (rowIndex: number) =>
+            rowIndex === 0 ? '#CFE2FF' : rowIndex % 2 === 0 ? '#F5FAFF' : null,
+          hLineWidth: () => 0.8,
+          vLineWidth: () => 0.8,
+          hLineColor: () => '#0056B366',
+          vLineColor: () => '#0056B366',
         },
-        margin: [0, 0, 0, 15],
-        pageBreak: 'after', // ✅ تجعل هذا القسم على صفحة كاملة
+        margin: [30, 0, 30, 25],
+        alignment: 'center',
+        pageBreak: 'after',
       });
     }
 
-    // 🟢 دالة لإضافة الروابط في جدول مع pageBreak
+    // 🟦 دالة لإضافة الجداول الخاصة بالروابط
     const addLinksTable = (title: string, urls: string[]) => {
       if (!urls.length) return;
 
       content.push({
         text: `${title} (${urls.length})`,
         style: 'subHeader',
-        margin: [0, 10, 0, 5],
+        alignment: 'center',
+        margin: [0, 10, 0, 10],
       });
 
-      const tableBody: any[] = [
-        [{ text: 'Link', style: 'tableHeader' }]
-      ];
+      const tableBody: any[] = [[{ text: 'Link', style: 'tableHeader' }]];
 
       urls.forEach(url => {
         tableBody.push([
           {
-            stack: [
-              { text: url, link: url, style: 'tableLink' }
-            ],
-            fillColor: '#f9f9f9',
-            margin: [0, 2, 0, 2],
-          }
+            text: url,
+            link: url,
+            style: 'tableLink',
+            alignment: 'center',
+            margin: [0, 5, 0, 5],
+          },
         ]);
       });
 
       content.push({
         table: { widths: ['*'], body: tableBody },
         layout: {
-          fillColor: (rowIndex: number) => (rowIndex === 0 ? '#d0e7ff' : null),
+          fillColor: (rowIndex: number) =>
+            rowIndex === 0 ? '#CFE2FF' : '#F0F7FF',
           hLineWidth: () => 0.5,
           vLineWidth: () => 0.5,
-          hLineColor: () => '#ccc',
-          vLineColor: () => '#ccc',
-          paddingLeft: () => 8,
-          paddingRight: () => 8,
+          hLineColor: () => '#0056B333',
+          vLineColor: () => '#0056B333',
         },
-        margin: [0, 0, 0, 15],
-        pageBreak: 'after', // ✅ كل قسم على صفحة جديدة
+        margin: [40, 0, 40, 25],
+        pageBreak: 'after',
       });
     };
 
@@ -258,57 +278,121 @@ async generatePdf() {
     addLinksTable('Visually Similar Images', this.visuallySimilarImages);
     addLinksTable('Pages Containing the Image', this.matchingPages);
 
-    // ✅ Best Guess Labels كـTags
-    if (this.bestGuessLabels.length) {
+    // ✅ Best Guess Labels (كل Label في صف واحد داخل جدول)
+    if (Array.isArray(this.bestGuessLabels) && this.bestGuessLabels.length > 0) {
       content.push({
         text: `Best Guess Labels (${this.bestGuessLabels.length})`,
         style: 'subHeader',
-        margin: [0, 10, 0, 5],
+        alignment: 'center',
+        margin: [0, 10, 0, 10],
       });
 
-      const tags = this.bestGuessLabels.map((label, idx) => ({
-        text: label,
-        style: 'tagItem',
-        margin: [2, 2, 2, 2],
-        fillColor: idx % 2 === 0 ? '#007bff' : '#0056b3',
-      }));
+      const tableBody: any[] = [[{ text: 'Label', style: 'tableHeader' }]];
+
+      this.bestGuessLabels.forEach((label, idx) => {
+        tableBody.push([
+          {
+            text: label,
+            style: 'tagItem',
+            fillColor: idx % 2 === 0 ? '#0056B3' : '#007BFF',
+            margin: [0, 6, 0, 6],
+          },
+        ]);
+      });
 
       content.push({
-        columns: tags,
-        columnGap: 5,
-        margin: [0, 0, 0, 15],
+        table: {
+          widths: ['100%'],
+          body: tableBody,
+        },
+        layout: {
+          fillColor: (rowIndex: number) =>
+            rowIndex === 0 ? '#CFE2FF' : rowIndex % 2 === 0 ? '#F0F7FF' : null,
+          hLineWidth: () => 0.6,
+          vLineWidth: () => 0.6,
+          hLineColor: () => '#0056B355',
+          vLineColor: () => '#0056B355',
+        },
+        margin: [40, 0, 40, 30],
       });
     }
 
+    // ✅ تعريف التصميم الكامل للمستند
     const docDefinition = {
       content,
       defaultStyle: { font: 'Roboto', alignment: 'left' },
       styles: {
-        header: { fontSize: 22, bold: true, color: '#0056b3', alignment: 'center', decoration: 'underline', decorationColor: '#007bff', decorationStyle: 'dashed' },
-        sectionTitle: { fontSize: 16, bold: true, color: '#004080', margin: [0, 10, 0, 5] },
-        subHeader: { fontSize: 13, bold: true, color: '#007bff' },
-        paragraph: { fontSize: 12, color: '#333' },
-        tableHeader: { bold: true, fontSize: 12, color: '#007bff' },
-        tableCell: { fontSize: 11, color: '#333' },
-        tableLink: { fontSize: 11, color: '#000', decoration: 'underline' },
-        tagItem: { fontSize: 11, color: '#fff', alignment: 'center', bold: true, borderRadius: 4, padding: [4, 2, 4, 2] },
+        header: {
+          fontSize: 22,
+          bold: true,
+          color: '#002B5B',
+          alignment: 'center',
+          decoration: 'underline',
+        },
+        sectionTitle: {
+          fontSize: 17,
+          bold: true,
+          color: '#003C82',
+          alignment: 'center',
+        },
+        subHeader: {
+          fontSize: 13,
+          bold: true,
+          color: '#0056B3',
+        },
+        paragraph: {
+          fontSize: 12,
+          color: '#002B5B',
+          lineHeight: 1.5,
+        },
+        tableHeader: {
+          bold: true,
+          fontSize: 12,
+          color: '#002B5B',
+          alignment: 'center',
+        },
+        tableCell: {
+          fontSize: 11,
+          color: '#002B5B',
+          alignment: 'center',
+        },
+        tableLink: {
+          fontSize: 11,
+          color: '#004C99',
+          decoration: 'underline',
+        },
+        tagItem: {
+          fontSize: 11,
+          color: '#FFFFFF',
+          alignment: 'center',
+          bold: true,
+          padding: [8, 4, 8, 4],
+          borderRadius: 6,
+        },
       },
       pageMargins: [40, 60, 40, 60],
-      background: logoBase64
-        ? [
-            {
-              image: logoBase64,
-              width: 150,
-              opacity: 0.05,
-              alignment: 'center',
-              margin: [0, 200, 0, 0],
-            },
-          ]
-        : [],
+      background: [
+        {
+          canvas: [
+            { type: 'rect', x: 20, y: 20, w: 555, h: 802, color: '#E6F2FF', r: 10 },
+            { type: 'rect', x: 20, y: 20, w: 555, h: 802, r: 10, lineWidth: 2, lineColor: '#0056B3' },
+          ],
+        },
+        ...(logoBase64
+          ? [
+              {
+                image: logoBase64,
+                width: 180,
+                opacity: 0.05,
+                alignment: 'center',
+                margin: [0, 250, 0, 0],
+              },
+            ]
+          : []),
+      ],
     };
 
     (pdfMake as any).createPdf(docDefinition).download('Aseel_Report.pdf');
-
   } catch (error) {
     console.error('❌ Error generating report:', error);
     alert('Failed to generate the report.');
