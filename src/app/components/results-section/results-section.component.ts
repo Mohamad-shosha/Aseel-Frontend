@@ -16,7 +16,7 @@ import * as pdfMake from 'pdfmake/build/pdfmake';
 import * as pdfFonts from 'pdfmake/build/vfs_fonts';
 import { HttpClient } from '@angular/common/http';
 
-// ربط خطوط PDFMake
+// ✅ ربط خطوط PDFMake بالطريقة الصحيحة
 (pdfMake as any).vfs = pdfFonts.vfs;
 
 @Component({
@@ -53,15 +53,15 @@ export class ResultsSectionComponent implements OnInit, OnChanges {
     if (changes['analysisData']) this.updateData();
   }
 
-    extractDomain(url: string): string {
+  extractDomain(url: string): string {
     try {
-      const hostname = new URL(url).hostname.replace("www.", "");
-      return hostname.length > 25 ? hostname.substring(0, 25) + "..." : hostname;
+      const hostname = new URL(url).hostname.replace('www.', '');
+      return hostname.length > 25 ? hostname.substring(0, 25) + '...' : hostname;
     } catch {
-      return "رابط غير صالح";
+      return 'رابط غير صالح';
     }
   }
-  
+
   private updateData() {
     if (!this.analysisData) return;
     let data: any =
@@ -69,23 +69,25 @@ export class ResultsSectionComponent implements OnInit, OnChanges {
         ? this.parseTextResponse(this.analysisData)
         : this.analysisData;
 
-    this.webEntities = (data['Web Entities'] || [])
-      .map((item: string) => {
-        const match = item.match(/^(.+?)\s*\(score:\s*([\d.]+)\)$/);
-        return match
-          ? { name: match[1].trim(), score: parseFloat(match[2]) }
-          : { name: item, score: 0 };
-      })
-      .sort((a: { score: number }, b: { score: number }) => b.score - a.score);
+   this.webEntities = (data['Web Entities'] || [])
+  .map((item: string) => {
+    const match = item.match(/^(.+?)\s*\(score:\s*([\d.]+)\)$/);
+    let score = match ? parseFloat(match[2]) : 0;
+    score = Math.min(score, 1);
 
-    this.fullMatchingImages = (data['Full Matching Images'] || []).filter(
-      (url: string) => this.isSafeUrl(url)
+    return { name: match ? match[1].trim() : item, score };
+  })
+  .sort((a: { score: number }, b: { score: number }) => b.score - a.score);
+
+
+    this.fullMatchingImages = (data['Full Matching Images'] || []).filter((url: string) =>
+      this.isSafeUrl(url)
     );
-    this.visuallySimilarImages = (data['Visually Similar Images'] || []).filter(
-      (url: string) => this.isSafeUrl(url)
+    this.visuallySimilarImages = (data['Visually Similar Images'] || []).filter((url: string) =>
+      this.isSafeUrl(url)
     );
-    this.matchingPages = (data['Pages With Matching Images'] || []).filter(
-      (url: string) => this.isSafeUrl(url)
+    this.matchingPages = (data['Pages With Matching Images'] || []).filter((url: string) =>
+      this.isSafeUrl(url)
     );
     this.bestGuessLabels = data['Best Guess Labels'] || [];
   }
@@ -133,32 +135,38 @@ export class ResultsSectionComponent implements OnInit, OnChanges {
     return '#10b981';
   }
 
-  private loadImageAsBase64(url: string): Promise<string> {
-    return new Promise((resolve, reject) => {
-      this.http.get(url, { responseType: 'blob' }).subscribe({
-        next: (blob: Blob) => {
-          const reader = new FileReader();
-          reader.onloadend = () => resolve(reader.result as string);
-          reader.onerror = () => reject(reader.error);
-          reader.readAsDataURL(blob);
-        },
-        error: (err) => reject(err),
+  // ✅ تحميل الصورة كـ base64 بطريقة آمنة
+  private async loadImageAsBase64(url: string): Promise<string> {
+    try {
+      const response = await fetch(url);
+      const blob = await response.blob();
+      return await new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onloadend = () => resolve(reader.result as string);
+        reader.onerror = reject;
+        reader.readAsDataURL(blob);
       });
-    });
+    } catch (error) {
+      console.warn('⚠️ Unable to load image:', url, error);
+      return '';
+    }
   }
 
+  // ✅ إنشاء ملف PDF
   async generatePdf() {
     try {
-      const logoBase64 = await this.loadImageAsBase64('assets/Logo Assel.png');
+      const logoBase64 = await this.loadImageAsBase64('assets/logo-assel.png');
       const content: any[] = [];
 
       // Logo
-      content.push({
-        image: logoBase64,
-        width: 120,
-        alignment: 'center',
-        margin: [0, 0, 0, 20],
-      });
+      if (logoBase64) {
+        content.push({
+          image: logoBase64,
+          width: 120,
+          alignment: 'center',
+          margin: [0, 0, 0, 20],
+        });
+      }
 
       // Title
       content.push({
@@ -205,7 +213,7 @@ export class ResultsSectionComponent implements OnInit, OnChanges {
         );
       }
 
-      // Full Matching Images (with previews)
+      // Full Matching Images
       if (this.fullMatchingImages.length) {
         content.push({
           text: `Full Matching Images (${this.fullMatchingImages.length})`,
@@ -215,23 +223,17 @@ export class ResultsSectionComponent implements OnInit, OnChanges {
         for (const url of this.fullMatchingImages) {
           try {
             const imgBase64 = await this.loadImageAsBase64(url);
-            content.push({
-              image: imgBase64,
-              width: 200,
-              margin: [0, 5, 0, 10],
-            });
+            if (imgBase64)
+              content.push({ image: imgBase64, width: 200, margin: [0, 5, 0, 10] });
+            else
+              content.push({ text: `• ${url}`, style: 'linkItem', link: url });
           } catch {
-            content.push({
-              text: `• ${url}`,
-              style: 'linkItem',
-              alignment: 'left',
-              link: url,
-            });
+            content.push({ text: `• ${url}`, style: 'linkItem', link: url });
           }
         }
       }
 
-      // Visually Similar Images (with previews)
+      // Visually Similar Images
       if (this.visuallySimilarImages.length) {
         content.push({
           text: `Visually Similar Images (${this.visuallySimilarImages.length})`,
@@ -241,23 +243,17 @@ export class ResultsSectionComponent implements OnInit, OnChanges {
         for (const url of this.visuallySimilarImages) {
           try {
             const imgBase64 = await this.loadImageAsBase64(url);
-            content.push({
-              image: imgBase64,
-              width: 200,
-              margin: [0, 5, 0, 10],
-            });
+            if (imgBase64)
+              content.push({ image: imgBase64, width: 200, margin: [0, 5, 0, 10] });
+            else
+              content.push({ text: `• ${url}`, style: 'linkItem', link: url });
           } catch {
-            content.push({
-              text: `• ${url}`,
-              style: 'linkItem',
-              alignment: 'left',
-              link: url,
-            });
+            content.push({ text: `• ${url}`, style: 'linkItem', link: url });
           }
         }
       }
 
-      // Matching Pages (black links)
+      // Matching Pages
       if (this.matchingPages.length) {
         content.push({
           text: `Pages Containing the Image (${this.matchingPages.length})`,
@@ -268,7 +264,6 @@ export class ResultsSectionComponent implements OnInit, OnChanges {
           content.push({
             text: `• ${url}`,
             style: 'blackLink',
-            alignment: 'left',
             link: url,
           })
         );
@@ -285,7 +280,6 @@ export class ResultsSectionComponent implements OnInit, OnChanges {
           content.push({
             text: `• ${label}`,
             style: 'listItem',
-            alignment: 'left',
           })
         );
       }
@@ -339,8 +333,8 @@ export class ResultsSectionComponent implements OnInit, OnChanges {
 
       (pdfMake as any).createPdf(docDefinition).download('Aseel_Report.pdf');
     } catch (error) {
-      console.error('Error generating report:', error);
-      alert('Failed to generate the report. Check image access or logo path.');
+      console.error('❌ Error generating report:', error);
+      alert('Failed to generate the report. Check image path or permissions.');
     }
   }
 }

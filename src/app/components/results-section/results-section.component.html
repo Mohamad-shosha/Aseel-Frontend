@@ -19,7 +19,7 @@
               </small>
             </div>
             <app-circular-progress
-              [percentage]="entity.score * 100"
+              [percentage]="entity.score * 100 > 100 ? 100 : entity.score * 100"
               [size]="60"
               [strokeWidth]="6"
               [color]="getEntityColor(entity.score)"
@@ -116,12 +116,11 @@
             <div class="d-flex align-items-center gap-2">
               <i class="bi bi-globe fs-4 text-muted"></i>
               <div>
-  <div class="fw-bold text-dark text-truncate" style="max-width: 220px">
-    {{ extractDomain(url) }}
-  </div>
-  <small class="text-primary fw-semibold">زيارة الصفحة</small>
-</div>
-
+                <div class="fw-bold text-dark text-truncate" style="max-width: 220px">
+                  {{ extractDomain(url) }}
+                </div>
+                <small class="text-primary fw-semibold">زيارة الصفحة</small>
+              </div>
             </div>
           </div>
         </a>
@@ -157,5 +156,3 @@
     </button>
   </div>
 </section>
-
-<!-- باقي الأنماط كما هي -->
