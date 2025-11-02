@@ -157,7 +157,6 @@ export class ResultsSectionComponent implements OnInit, OnChanges {
 
       const logoBase64 = await this.loadImageAsBase64('assets/Logo-Assel.png');
 
-      // --- Header ---
       if (logoBase64) {
         content.push({
           image: logoBase64,
@@ -179,7 +178,7 @@ export class ResultsSectionComponent implements OnInit, OnChanges {
             type: 'line',
             x1: 0,
             y1: 0,
-            x2: 515, // يغطي عرض الصفحة تقريبًا
+            x2: 500,
             y2: 0,
             lineWidth: 1.2,
             lineColor: '#007bff',
@@ -197,20 +196,20 @@ export class ResultsSectionComponent implements OnInit, OnChanges {
       content.push({
         text: 'Analysis Results',
         style: 'sectionTitle',
-        margin: [0, 0, 0, 15],
+        margin: [0, 0, 0, 10],
       });
 
-      // --- Web Entities Table ---
+      // ✅ جدول Web Entities
       if (this.webEntities.length) {
         content.push({
           text: `Detected Entities (${this.webEntities.length})`,
           style: 'subHeader',
-          margin: [0, 10, 0, 8],
+          margin: [0, 5, 0, 5],
         });
 
-        const entityTable = {
+        content.push({
           table: {
-            widths: ['auto', 'auto'],
+            widths: ['*', 50],
             body: [
               [
                 { text: 'Entity', style: 'tableHeader' },
@@ -226,22 +225,29 @@ export class ResultsSectionComponent implements OnInit, OnChanges {
               ]),
             ],
           },
-          layout: this.getTableLayout(),
-          margin: [0, 0, 0, 20],
-          alignment: 'center', // ✅ توسيط الجدول
-        };
-
-        content.push(entityTable);
+          layout: {
+            fillColor: (rowIndex: number) =>
+              rowIndex === 0 ? '#007bff33' : null,
+            hLineWidth: () => 0.7,
+            vLineWidth: () => 0.7,
+            hLineColor: () => '#007bff66',
+            vLineColor: () => '#007bff66',
+            paddingLeft: () => 8,
+            paddingRight: () => 8,
+          },
+          margin: [0, 0, 0, 15],
+          pageBreak: 'after', // ✅ تجعل هذا القسم على صفحة كاملة
+        });
       }
 
-      // --- Reusable Links Table Function ---
+      // 🟢 دالة لإضافة الروابط في جدول مع pageBreak
       const addLinksTable = (title: string, urls: string[]) => {
         if (!urls.length) return;
 
         content.push({
           text: `${title} (${urls.length})`,
           style: 'subHeader',
-          margin: [0, 15, 0, 8],
+          margin: [0, 10, 0, 5],
         });
 
         const tableBody: any[] = [[{ text: 'Link', style: 'tableHeader' }]];
@@ -249,27 +255,27 @@ export class ResultsSectionComponent implements OnInit, OnChanges {
         urls.forEach((url) => {
           tableBody.push([
             {
-              text: url,
-              link: url,
-              style: 'tableLink',
-              fillColor: '#f8f9fa',
-              margin: [4, 3, 4, 3],
+              stack: [{ text: url, link: url, style: 'tableLink' }],
+              fillColor: '#f9f9f9',
+              margin: [0, 2, 0, 2],
             },
           ]);
         });
 
         content.push({
-          table: {
-            widths: ['*'],
-            body: tableBody,
-          },
+          table: { widths: ['*'], body: tableBody },
           layout: {
-            ...this.getTableLayout(),
             fillColor: (rowIndex: number) =>
-              rowIndex === 0 ? '#e3f2fd' : null, // لون خفيف للهيدر
+              rowIndex === 0 ? '#d0e7ff' : null,
+            hLineWidth: () => 0.5,
+            vLineWidth: () => 0.5,
+            hLineColor: () => '#ccc',
+            vLineColor: () => '#ccc',
+            paddingLeft: () => 8,
+            paddingRight: () => 8,
           },
-          margin: [0, 0, 0, 20],
-          alignment: 'center', // ✅ توسيط الجدول
+          margin: [0, 0, 0, 15],
+          pageBreak: 'after', // ✅ كل قسم على صفحة جديدة
         });
       };
 
@@ -277,77 +283,52 @@ export class ResultsSectionComponent implements OnInit, OnChanges {
       addLinksTable('Visually Similar Images', this.visuallySimilarImages);
       addLinksTable('Pages Containing the Image', this.matchingPages);
 
-      // --- Best Guess Labels as Tags ---
+      // ✅ Best Guess Labels كـTags
       if (this.bestGuessLabels.length) {
         content.push({
           text: `Best Guess Labels (${this.bestGuessLabels.length})`,
           style: 'subHeader',
-          margin: [0, 15, 0, 8],
+          margin: [0, 10, 0, 5],
         });
 
         const tags = this.bestGuessLabels.map((label, idx) => ({
           text: label,
           style: 'tagItem',
-          margin: [4, 2, 4, 2],
-          fillColor: idx % 2 === 0 ? '#1976d2' : '#0d47a1', // أزرق داكن أكثر احترافية
+          margin: [2, 2, 2, 2],
+          fillColor: idx % 2 === 0 ? '#007bff' : '#0056b3',
         }));
 
         content.push({
           columns: tags,
-          columnGap: 8,
-          margin: [0, 0, 0, 20],
-          alignment: 'center',
+          columnGap: 5,
+          margin: [0, 0, 0, 15],
         });
       }
 
-      // --- Document Definition ---
       const docDefinition = {
         content,
-        defaultStyle: { font: 'Roboto', fontSize: 11, color: '#333' },
+        defaultStyle: { font: 'Roboto', alignment: 'left' },
         styles: {
           header: {
             fontSize: 22,
             bold: true,
-            color: '#0d47a1',
+            color: '#0056b3',
             alignment: 'center',
             decoration: 'underline',
-            decorationColor: '#1976d2',
+            decorationColor: '#007bff',
             decorationStyle: 'dashed',
           },
           sectionTitle: {
             fontSize: 16,
             bold: true,
-            color: '#0d47a1',
-            margin: [0, 15, 0, 8],
+            color: '#004080',
+            margin: [0, 10, 0, 5],
           },
-          subHeader: {
-            fontSize: 13,
-            bold: true,
-            color: '#1976d2',
-          },
-          paragraph: {
-            fontSize: 12,
-            color: '#444',
-            lineHeight: 1.4,
-          },
-          tableHeader: {
-            bold: true,
-            fontSize: 12,
-            color: '#fff',
-            fillColor: '#1976d2',
-            alignment: 'center',
-          },
-          tableCell: {
-            fontSize: 11,
-            color: '#333',
-            alignment: 'center',
-          },
-          tableLink: {
-            fontSize: 11,
-            color: '#1976d2',
-            decoration: 'underline',
-            link: true,
-          },
+          subHeader: { fontSize: 13, bold: true, color: '#007bff' },
+          paragraph: { fontSize: 12, color: '#333' },
+          tableHeader: { bold: true, fontSize: 12, color: '#007bff' },
+          tableCell: { fontSize: 11, color: '#333' },
+          tableLink: { fontSize: 11, color: '#000', decoration: 'underline' },
           tagItem: {
             fontSize: 11,
             color: '#fff',
@@ -357,40 +338,18 @@ export class ResultsSectionComponent implements OnInit, OnChanges {
             padding: [4, 2, 4, 2],
           },
         },
-        pageMargins: [50, 70, 50, 60], // هامش أكبر للإطار
-        background: (currentPage: number, pageSize: any) => {
-          const elements: any[] = [];
-
-          // 1. Border around page
-          elements.push({
-            canvas: [
+        pageMargins: [40, 60, 40, 60],
+        background: logoBase64
+          ? [
               {
-                type: 'rect',
-                x: 0,
-                y: 0,
-                w: pageSize.width,
-                h: pageSize.height,
-                lineWidth: 1,
-                lineColor: '#e0e0e0',
+                image: logoBase64,
+                width: 150,
+                opacity: 0.05,
+                alignment: 'center',
+                margin: [0, 200, 0, 0],
               },
-            ],
-          });
-
-          // 2. Optional: Light watermark (comment if not needed)
-          if (logoBase64 && currentPage === 1) {
-            elements.push({
-              image: logoBase64,
-              width: 120,
-              opacity: 0.03,
-              absolutePosition: {
-                x: pageSize.width / 2 - 60,
-                y: pageSize.height / 2 - 60,
-              },
-            });
-          }
-
-          return elements;
-        },
+            ]
+          : [],
       };
 
       (pdfMake as any).createPdf(docDefinition).download('Aseel_Report.pdf');
@@ -398,19 +357,5 @@ export class ResultsSectionComponent implements OnInit, OnChanges {
       console.error('❌ Error generating report:', error);
       alert('Failed to generate the report.');
     }
-  }
-
-  // --- Helper for consistent table layout ---
-  private getTableLayout() {
-    return {
-      hLineWidth: () => 0.7,
-      vLineWidth: () => 0.7,
-      hLineColor: () => '#e0e0e0',
-      vLineColor: () => '#e0e0e0',
-      paddingLeft: () => 10,
-      paddingRight: () => 10,
-      paddingTop: () => 6,
-      paddingBottom: () => 6,
-    };
   }
 }
